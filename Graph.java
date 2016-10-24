@@ -5,6 +5,7 @@ public class Graph
    public Graph()
    {
       nodes = new ArrayList<>();
+      done = false;
    }
 
    public void add(Node aNode)
@@ -24,7 +25,7 @@ public class Graph
 
    public void move()
    {
-      for (int i = 0; i < 500; i++)
+      while (!done)
       {
          moveNodes();
       }
@@ -36,6 +37,7 @@ public class Graph
       Node node1, node2;
       int n = nodes.size();
 
+      done = true;
       initialize();
       for (int i = 0; i < n - 1; i++)
       {
@@ -45,7 +47,7 @@ public class Graph
             node2 = nodes.get(j);
             dx = node2.getX() - node1.getX();
             dy = node2.getY() - node1.getY();
-            if (Math.abs(dx) >= L / 2 || Math.abs(dy) >= L / 2)
+            if (Math.abs(dx) >= 0 || Math.abs(dy) >= 0)
             {
                distanceSquared = dx * dx + dy * dy;
                distance = Math.sqrt(distanceSquared);
@@ -58,8 +60,8 @@ public class Graph
                node2.setForceY(node2.getForceY() + fy);
             } else
             {
-               fx = Math.random() * 20 * L;
-               fy = Math.random() * 20 * L;
+               fx = Math.random() * 10 * L;
+               fy = Math.random() * 10 * L;
                if ((int) Math.random() * 2 == 1)
                {
                   node1.setForceX(node1.getForceX() - fx);
@@ -114,6 +116,10 @@ public class Graph
             s = Math.sqrt(MAX_DISPLACEMENT_SQUARED / distanceSquared);
             dx = dx * s;
             dy = dy * s;
+         }
+         if (dx > 0.001 || dy > 0.001)
+         {
+            done = false;
          }
          nodes.get(i).setX(nodes.get(i).getX() + dx);
          nodes.get(i).setY(nodes.get(i).getY() + dy);
@@ -183,10 +189,11 @@ public class Graph
    }
 
    ArrayList<Node> nodes;
-   double R = 0.05;
-   double L = 50;
-   double K_R = 6250;
+   double R = 1;
+   double L = 100;
+   double K_R = 8000;
    double K_S = K_R / (R * L * L * L);
-   double DELTA_T = 0.04;
+   double DELTA_T = 1;
    double MAX_DISPLACEMENT_SQUARED = 9000;
+   boolean done;
 }

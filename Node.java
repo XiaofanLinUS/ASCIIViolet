@@ -21,12 +21,15 @@ public class Node
 
    public void setX(double aX)
    {
-      x = aX;
+
+      if (aX > 0 && aX < RADIUS)
+         x = aX;
    }
 
    public void setY(double aY)
    {
-      y = aY;
+      if (aY > 0 && aY < RADIUS)
+         y = aY;
    }
 
    public double getX()
@@ -96,7 +99,7 @@ public class Node
       return result;
    }
 
-   private int RADIUS = 500;
+   private int RADIUS = 1000;
    private ArrayList<Node> neighbors;
    private ArrayList<Node> visitedNeighbors;
    private double forceX, forceY, x, y;

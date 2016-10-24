@@ -13,8 +13,8 @@ public class GraphIcon implements Icon
    public GraphIcon(Graph aGraph)
    {
       graph = aGraph;
-      width = 500;
-      height = 500;
+      width = (int) (aGraph.maxX() - aGraph.minX()) + 100;
+      height = (int) (aGraph.maxY() - aGraph.minY()) + 100;
    }
 
    public void paintIcon(Component c, Graphics g, int x, int y)
@@ -59,8 +59,8 @@ public class GraphIcon implements Icon
        * double x = width / 2.0 + node.getX(); double y = node.getY() - width /
        * 2.0; y = Math.abs(y); coordinate[0] = x; coordinate[1] = y;
        */
-      coordinate[0] = node.getX();
-      coordinate[1] = node.getY();
+      coordinate[0] = node.getX() - graph.minX() + 50;
+      coordinate[1] = node.getY() - graph.minY() + 50;
       return coordinate;
    }
 

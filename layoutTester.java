@@ -3,7 +3,6 @@ import java.awt.FlowLayout;
 import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.Timer;
 
 public class layoutTester
 {
@@ -27,6 +26,7 @@ public class layoutTester
       e.connectNeighbor(b);
       e.connectNeighbor(f);
       e.connectNeighbor(g);
+      g.connectNeighbor(f);
       g.connectNeighbor(h);
       g.connectNeighbor(i);
       aGraph.add(a);
@@ -38,7 +38,7 @@ public class layoutTester
       aGraph.add(g);
       aGraph.add(h);
       aGraph.add(i);
-
+      aGraph.move();
       JFrame frame = new JFrame();
 
       Icon icon = new GraphIcon(aGraph);
@@ -46,12 +46,12 @@ public class layoutTester
       final JLabel label = new JLabel(icon);
       frame.setLayout(new FlowLayout());
       frame.add(label);
-      final int DELAY = 50;
-      Timer t = new Timer(DELAY, event -> {
-         aGraph.moveNodes();
-         label.repaint();
-      });
-      t.start();
+      final int DELAY = 1;
+      // Timer t = new Timer(DELAY, event -> {
+      // aGraph.moveNodes();
+      // label.repaint();
+      // });
+      // t.start();
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.pack();
       frame.setVisible(true);
