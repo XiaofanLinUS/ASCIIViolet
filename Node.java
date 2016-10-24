@@ -12,6 +12,13 @@ public class Node
       visitedNeighbors = new ArrayList<>();
    }
 
+   public void reset()
+   {
+
+      x = RADIUS * Math.random();
+      y = RADIUS * Math.random();
+   }
+
    public void setX(double aX)
    {
       x = aX;
@@ -83,7 +90,13 @@ public class Node
       return neighbors.get(i);
    }
 
-   private int RADIUS = 300;
+   public String toString()
+   {
+      String result = "X: " + this.getX() + "Y: " + this.getY();
+      return result;
+   }
+
+   private int RADIUS = 500;
    private ArrayList<Node> neighbors;
    private ArrayList<Node> visitedNeighbors;
    private double forceX, forceY, x, y;
