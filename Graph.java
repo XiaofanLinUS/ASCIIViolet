@@ -45,7 +45,7 @@ public class Graph
             node2 = nodes.get(j);
             dx = node2.getX() - node1.getX();
             dy = node2.getY() - node1.getY();
-            if (Math.abs(dx) >= 5 || Math.abs(dy) >= 5)
+            if (Math.abs(dx) >= L / 2 || Math.abs(dy) >= L / 2)
             {
                distanceSquared = dx * dx + dy * dy;
                distance = Math.sqrt(distanceSquared);
@@ -58,12 +58,21 @@ public class Graph
                node2.setForceY(node2.getForceY() + fy);
             } else
             {
-               fx = Math.random() * L;
-               fy = Math.random() * L;
-               node1.setForceX(node1.getForceX() - fx);
-               node1.setForceY(node1.getForceY() - fy);
-               node2.setForceX(node2.getForceX() + fx);
-               node2.setForceY(node2.getForceY() + fy);
+               fx = Math.random() * 20 * L;
+               fy = Math.random() * 20 * L;
+               if ((int) Math.random() * 2 == 1)
+               {
+                  node1.setForceX(node1.getForceX() - fx);
+                  node1.setForceY(node1.getForceY() - fy);
+                  node2.setForceX(node2.getForceX() + fx);
+                  node2.setForceY(node2.getForceY() + fy);
+               } else
+               {
+                  node1.setForceX(node1.getForceX() + fx);
+                  node1.setForceY(node1.getForceY() + fy);
+                  node2.setForceX(node2.getForceX() - fx);
+                  node2.setForceY(node2.getForceY() - fy);
+               }
             }
          }
 
@@ -174,10 +183,10 @@ public class Graph
    }
 
    ArrayList<Node> nodes;
-   double R = 0.02;
+   double R = 0.05;
    double L = 50;
    double K_R = 6250;
    double K_S = K_R / (R * L * L * L);
-   double DELTA_T = 0.1;
+   double DELTA_T = 0.04;
    double MAX_DISPLACEMENT_SQUARED = 9000;
 }
