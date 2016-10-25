@@ -6,30 +6,20 @@ public class Node
    {
       forceX = 0;
       forceY = 0;
-      x = RADIUS * Math.random();
-      y = RADIUS * Math.random();
+      x = Math.random();
+      y = Math.random();
       neighbors = new ArrayList<>();
       visitedNeighbors = new ArrayList<>();
    }
 
-   public void reset()
-   {
-
-      x = RADIUS * Math.random();
-      y = RADIUS * Math.random();
-   }
-
    public void setX(double aX)
    {
-
-      if (aX > 0 && aX < RADIUS)
-         x = aX;
+      x = aX;
    }
 
    public void setY(double aY)
    {
-      if (aY > 0 && aY < RADIUS)
-         y = aY;
+      y = aY;
    }
 
    public double getX()
@@ -99,7 +89,6 @@ public class Node
       return result;
    }
 
-   private int RADIUS = 1000;
    private ArrayList<Node> neighbors;
    private ArrayList<Node> visitedNeighbors;
    private double forceX, forceY, x, y;

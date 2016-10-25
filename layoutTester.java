@@ -9,7 +9,7 @@ public class layoutTester
 
    public static void main(String[] args)
    {
-      Graph aGraph = new Graph();
+      Graph aGraph = new Graph(80);
       Node a = new Node();
       Node b = new Node();
       Node c = new Node();
@@ -46,12 +46,6 @@ public class layoutTester
       final JLabel label = new JLabel(icon);
       frame.setLayout(new FlowLayout());
       frame.add(label);
-      final int DELAY = 1;
-      // Timer t = new Timer(DELAY, event -> {
-      // aGraph.moveNodes();
-      // label.repaint();
-      // });
-      // t.start();
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.pack();
       frame.setVisible(true);

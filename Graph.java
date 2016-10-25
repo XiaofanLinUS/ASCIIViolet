@@ -2,8 +2,10 @@ import java.util.ArrayList;
 
 public class Graph
 {
-   public Graph()
+   public Graph(double length)
    {
+      l = length;
+      K_S = K_R / (R * l * l * l);
       nodes = new ArrayList<>();
       done = false;
    }
@@ -31,13 +33,12 @@ public class Graph
       }
    }
 
-   public void moveNodes()
+   private void moveNodes()
    {
       double dx, dy, distanceSquared, distance, force, fx, fy, s;
       Node node1, node2;
       int n = nodes.size();
 
-      done = true;
       initialize();
       for (int i = 0; i < n - 1; i++)
       {
@@ -60,8 +61,8 @@ public class Graph
                node2.setForceY(node2.getForceY() + fy);
             } else
             {
-               fx = Math.random() * 10 * L;
-               fy = Math.random() * 10 * L;
+               fx = Math.random() * 10 * l;
+               fy = Math.random() * 10 * l;
                if ((int) Math.random() * 2 == 1)
                {
                   node1.setForceX(node1.getForceX() - fx);
@@ -94,7 +95,7 @@ public class Graph
                if (Math.abs(dx) >= 1 || Math.abs(dy) >= 1)
                {
                   distance = Math.sqrt(dx * dx + dy * dy);
-                  force = K_S * (distance - L);
+                  force = K_S * (distance - l);
                   fx = force * dx / distance;
                   fy = force * dy / distance;
                   node1.setForceX(node1.getForceX() + fx);
@@ -117,7 +118,7 @@ public class Graph
             dx = dx * s;
             dy = dy * s;
          }
-         if (dx > 0.001 || dy > 0.001)
+         if (dx > 0.00009 || dy > 0.00009)
          {
             done = false;
          }
@@ -180,6 +181,8 @@ public class Graph
 
    public void initialize()
    {
+
+      done = true;
       for (int i = 0; i < nodes.size(); i++)
       {
          nodes.get(i).resetVisitedNeighbors();
@@ -188,12 +191,12 @@ public class Graph
       }
    }
 
-   ArrayList<Node> nodes;
-   double R = 1;
-   double L = 100;
-   double K_R = 8000;
-   double K_S = K_R / (R * L * L * L);
-   double DELTA_T = 1;
-   double MAX_DISPLACEMENT_SQUARED = 9000;
-   boolean done;
+   private ArrayList<Node> nodes;
+   private static final double R = 1;
+   private double l;
+   private static final double K_R = 8000;
+   private double K_S;
+   private double DELTA_T = 2;
+   private double MAX_DISPLACEMENT_SQUARED = 9000;
+   private boolean done;
 }

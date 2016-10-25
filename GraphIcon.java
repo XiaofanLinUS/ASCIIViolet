@@ -55,10 +55,6 @@ public class GraphIcon implements Icon
    public double[] relocate(Node node)
    {
       double[] coordinate = new double[2];
-      /*
-       * double x = width / 2.0 + node.getX(); double y = node.getY() - width /
-       * 2.0; y = Math.abs(y); coordinate[0] = x; coordinate[1] = y;
-       */
       coordinate[0] = node.getX() - graph.minX() + 50;
       coordinate[1] = node.getY() - graph.minY() + 50;
       return coordinate;
