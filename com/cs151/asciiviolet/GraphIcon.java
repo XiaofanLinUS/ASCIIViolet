@@ -1,3 +1,5 @@
+package com.cs151.asciiviolet;
+
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -15,14 +17,10 @@ public class GraphIcon implements Icon
    public GraphIcon(Graph aGraph)
    {
       graph = aGraph;
-      width = (int) (aGraph.maxX() - aGraph.minX()) + 100;
-      height = (int) (aGraph.maxY() - aGraph.minY()) + 100;
    }
 
    public void paintIcon(Component c, Graphics g, int x, int y)
    {
-      double[] coordinate1, coordinate2;
-
       Node node1, node2;
       Point2D point1, point2;
 
@@ -36,6 +34,7 @@ public class GraphIcon implements Icon
       for (int i = 0; i < graph.size(); i++)
       {
          node1 = graph.getNode(i);
+
          coordinate1 = relocate(node1);
          point1 = new Point2D.Double(x + coordinate1[0], y + coordinate1[1]);
          //g2.draw(new Rectangle2D.Double(x + coordinate1[0], y + coordinate1[1], size, size));
@@ -44,14 +43,17 @@ public class GraphIcon implements Icon
          box.paintIcon(c,g,(int)point1.getX(),(int)point1.getY());
         
              
+
+         point1 = new Point2D.Double(x + node1.getX(), y + node1.getY());
+         g2.draw(new Rectangle2D.Double(x + node1.getX(), y + node1.getY(), 5, 5));
+
          for (int j = 0; j < node1.neighborSize(); j++)
          {
             node2 = node1.getNeighbor(j);
-            coordinate2 = relocate(node2);
             if (!node2.visited(node1))
             {
 
-               point2 = new Point2D.Double(x + coordinate2[0], y + coordinate2[1]);
+               point2 = new Point2D.Double(x + node2.getX(), y + node2.getY());
                g2.draw(new Line2D.Double(point1, point2));
                node1.visit(node2);
             }
@@ -59,26 +61,20 @@ public class GraphIcon implements Icon
       }
    }
 
-   public double[] relocate(Node node)
-   {
-      double[] coordinate = new double[2];
-      coordinate[0] = node.getX() - graph.minX() + 50;
-      coordinate[1] = node.getY() - graph.minY() + 50;
-      return coordinate;
-   }
-
    public int getIconWidth()
    {
-      return width;
+      return graph.getWidth();
    }
 
    public int getIconHeight()
    {
 
-      return height;
+      return graph.getHeight();
    }
+
    private int size = 20; 
    private int width;
    private int height;
+
    private Graph graph;
 }

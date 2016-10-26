@@ -1,3 +1,5 @@
+package com.cs151.asciiviolet;
+
 import java.awt.FlowLayout;
 
 import javax.swing.Icon;
@@ -30,6 +32,7 @@ public class layoutTester
       g.connectNeighbor(f);
       g.connectNeighbor(h);
       g.connectNeighbor(i);
+
       aGraph.add(a);
       aGraph.add(b);
       aGraph.add(c);
@@ -44,6 +47,7 @@ public class layoutTester
       
       String text ="[a]-[b]\n[a]-[c]\n[d]-[b]\n[d]-[c]\n[e]-[b]\n[e]-[f]\n[e]-[g]\n[g]-[f]\n[g]-[h]\n[g]-[i]" ;
       classDiagramReader a = new classDiagramReader();
+
       JFrame frame = new JFrame();
 
       Icon icon = new GraphIcon(a.read(text));

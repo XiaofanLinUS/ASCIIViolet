@@ -1,3 +1,5 @@
+package com.cs151.asciiviolet;
+
 import java.util.ArrayList;
 
 public class Node
@@ -102,7 +104,7 @@ public class Node
 
    public String toString()
    {
-      String result = "X: " + this.getX() + "Y: " + this.getY();
+      String result = "X: " + this.getX() + ", Y: " + this.getY();
       return result;
    }
    private String name;
