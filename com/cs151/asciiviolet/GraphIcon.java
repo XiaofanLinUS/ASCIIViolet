@@ -1,3 +1,5 @@
+package com.cs151.asciiviolet;
+
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

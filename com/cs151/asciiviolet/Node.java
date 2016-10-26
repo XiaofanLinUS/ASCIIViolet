@@ -1,3 +1,5 @@
+package com.cs151.asciiviolet;
+
 import java.util.ArrayList;
 
 public class Node

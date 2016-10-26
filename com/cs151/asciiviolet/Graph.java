@@ -1,3 +1,5 @@
+package com.cs151.asciiviolet;
+
 import java.util.ArrayList;
 
 public class Graph
@@ -7,7 +9,6 @@ public class Graph
       l = length;
       K_S = K_R / (R * l * l * l);
       nodes = new ArrayList<>();
-      done = false;
    }
 
    public void add(Node aNode)
@@ -27,6 +28,7 @@ public class Graph
 
    public void move()
    {
+      done = false;
       while (!done)
       {
          moveNodes();

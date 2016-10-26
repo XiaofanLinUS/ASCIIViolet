@@ -1,3 +1,5 @@
+package com.cs151.asciiviolet;
+
 import java.awt.FlowLayout;
 
 import javax.swing.Icon;
