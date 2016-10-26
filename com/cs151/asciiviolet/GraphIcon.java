@@ -35,9 +35,8 @@ public class GraphIcon implements Icon
       {
          node1 = graph.getNode(i);
 
-         coordinate1 = relocate(node1);
-         point1 = new Point2D.Double(x + coordinate1[0], y + coordinate1[1]);
-         //g2.draw(new Rectangle2D.Double(x + coordinate1[0], y + coordinate1[1], size, size));
+
+         point1 = new Point2D.Double(x + node1.getX(), y + node1.getY());
          
          Icon box = new Box(node1.getName());
          box.paintIcon(c,g,(int)point1.getX(),(int)point1.getY());
@@ -75,6 +74,5 @@ public class GraphIcon implements Icon
    private int size = 20; 
    private int width;
    private int height;
-
    private Graph graph;
 }

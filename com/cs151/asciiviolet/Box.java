@@ -1,3 +1,5 @@
+package com.cs151.asciiviolet;
+
 import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;

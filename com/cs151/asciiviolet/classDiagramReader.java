@@ -1,3 +1,5 @@
+package com.cs151.asciiviolet;
+
 import java.awt.FlowLayout;
 
 import javax.swing.Icon;
@@ -100,10 +102,9 @@ public class classDiagramReader
          
       }// end while
       
-    for(int i = 0;i < nodes.size();i++)
-        aGraph.add(nodes.get(i));
-   aGraph.move();
-	return aGraph;     
+      for(int i = 0;i < nodes.size();i++)
+        aGraph.addNode(nodes.get(i));
+	   return aGraph;     
    } 
    private int find(String cn , ArrayList<Node> nodes)
    {
