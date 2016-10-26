@@ -11,9 +11,10 @@ public class Graph
       nodes = new ArrayList<>();
    }
 
-   public void add(Node aNode)
+   public void addNode(Node aNode)
    {
       nodes.add(aNode);
+      move();
    }
 
    public Node getNode(int i)
@@ -26,12 +27,25 @@ public class Graph
       return nodes.size();
    }
 
-   public void move()
+   private void move()
    {
       done = false;
       while (!done)
       {
          moveNodes();
+      }
+      reset();
+   }
+
+   private void reset()
+   {
+      double Xminimum = minX();
+      double Yminimum = minY();
+      for (Node node : nodes)
+      {
+
+         node.setX(node.getX() - Xminimum + l);
+         node.setY(node.getY() - Yminimum + l);
       }
    }
 
@@ -40,8 +54,8 @@ public class Graph
       double dx, dy, distanceSquared, distance, force, fx, fy, s;
       Node node1, node2;
       int n = nodes.size();
-
       initialize();
+
       for (int i = 0; i < n - 1; i++)
       {
          node1 = nodes.get(i);
@@ -120,7 +134,7 @@ public class Graph
             dx = dx * s;
             dy = dy * s;
          }
-         if (dx > 0.00009 || dy > 0.00009)
+         if (dx > 0.000009 || dy > 0.000009)
          {
             done = false;
          }
@@ -181,7 +195,18 @@ public class Graph
       return min;
    }
 
-   public void initialize()
+   public int getWidth()
+   {
+
+      return (int) (maxX() + l);
+   }
+
+   public int getHeight()
+   {
+      return (int) (maxY() + l);
+   }
+
+   private void initialize()
    {
 
       done = true;
@@ -194,11 +219,13 @@ public class Graph
    }
 
    private ArrayList<Node> nodes;
+
    private static final double R = 1;
-   private double l;
    private static final double K_R = 8000;
+   private static final double DELTA_T = 2;
+
    private double K_S;
-   private double DELTA_T = 2;
+   private double l;
    private double MAX_DISPLACEMENT_SQUARED = 9000;
    private boolean done;
 }

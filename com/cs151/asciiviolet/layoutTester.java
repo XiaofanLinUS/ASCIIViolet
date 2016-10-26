@@ -31,16 +31,16 @@ public class layoutTester
       g.connectNeighbor(f);
       g.connectNeighbor(h);
       g.connectNeighbor(i);
-      aGraph.add(a);
-      aGraph.add(b);
-      aGraph.add(c);
-      aGraph.add(d);
-      aGraph.add(e);
-      aGraph.add(f);
-      aGraph.add(g);
-      aGraph.add(h);
-      aGraph.add(i);
-      aGraph.move();
+      g.connectNeighbor(a);
+      aGraph.addNode(a);
+      aGraph.addNode(b);
+      aGraph.addNode(c);
+      aGraph.addNode(d);
+      aGraph.addNode(e);
+      aGraph.addNode(f);
+      aGraph.addNode(g);
+      aGraph.addNode(h);
+      aGraph.addNode(i);
       JFrame frame = new JFrame();
 
       Icon icon = new GraphIcon(aGraph);
