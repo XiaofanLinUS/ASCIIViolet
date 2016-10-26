@@ -9,9 +9,10 @@ public class layoutTester
 
    public static void main(String[] args)
    {
+	   /*
       Graph aGraph = new Graph(80);
-      Node a = new Node();
-      Node b = new Node();
+      Node a = new Node("a");
+      Node b = new Node("b");
       Node c = new Node();
       Node d = new Node();
       Node e = new Node();
@@ -39,9 +40,15 @@ public class layoutTester
       aGraph.add(h);
       aGraph.add(i);
       aGraph.move();
+      */
+      
+      String text ="[a]-[b]\n[a]-[c]\n[d]-[b]\n[d]-[c]\n[e]-[b]\n[e]-[f]\n[e]-[g]\n[g]-[f]\n[g]-[h]\n[g]-[i]" ;
+      classDiagramReader a = new classDiagramReader();
       JFrame frame = new JFrame();
 
-      Icon icon = new GraphIcon(aGraph);
+      Icon icon = new GraphIcon(a.read(text));
+
+      //Icon icon = new GraphIcon(aGraph);
 
       final JLabel label = new JLabel(icon);
       frame.setLayout(new FlowLayout());

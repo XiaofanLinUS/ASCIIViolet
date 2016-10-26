@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.*;
+import javax.swing.*;
 
 import javax.swing.Icon;
 
@@ -36,7 +38,12 @@ public class GraphIcon implements Icon
          node1 = graph.getNode(i);
          coordinate1 = relocate(node1);
          point1 = new Point2D.Double(x + coordinate1[0], y + coordinate1[1]);
-         g2.draw(new Rectangle2D.Double(x + coordinate1[0], y + coordinate1[1], 5, 5));
+         //g2.draw(new Rectangle2D.Double(x + coordinate1[0], y + coordinate1[1], size, size));
+         
+         Icon box = new Box(node1.getName());
+         box.paintIcon(c,g,(int)point1.getX(),(int)point1.getY());
+        
+             
          for (int j = 0; j < node1.neighborSize(); j++)
          {
             node2 = node1.getNeighbor(j);
@@ -70,7 +77,7 @@ public class GraphIcon implements Icon
 
       return height;
    }
-
+   private int size = 20; 
    private int width;
    private int height;
    private Graph graph;

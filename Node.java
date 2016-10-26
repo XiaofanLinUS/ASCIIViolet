@@ -4,6 +4,7 @@ public class Node
 {
    public Node()
    {
+     this.name = "";
       forceX = 0;
       forceY = 0;
       x = Math.random();
@@ -11,7 +12,23 @@ public class Node
       neighbors = new ArrayList<>();
       visitedNeighbors = new ArrayList<>();
    }
-
+   
+   public Node(String name)
+   {
+      this.name = name;
+      forceX = 0;
+      forceY = 0;
+      x = Math.random();
+      y = Math.random();
+      neighbors = new ArrayList<>();
+      visitedNeighbors = new ArrayList<>();
+   }
+   
+   public String getName()
+   {
+      return name;
+   }
+      
    public void setX(double aX)
    {
       x = aX;
@@ -88,7 +105,7 @@ public class Node
       String result = "X: " + this.getX() + "Y: " + this.getY();
       return result;
    }
-
+   private String name;
    private ArrayList<Node> neighbors;
    private ArrayList<Node> visitedNeighbors;
    private double forceX, forceY, x, y;
