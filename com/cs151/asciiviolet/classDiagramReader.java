@@ -16,10 +16,11 @@ public class classDiagramReader
    {
       String text ="[a]-[b]\n[a]-[c]\n[d]-[b]\n[d]-[c]\n[e]-[b]\n[e]-[f]\n[e]-[g]\n[g]-[f]\n[g]-[h]\n[g]-[i]" ;
       String text2 ="[a]-[b][a]-[c][d]-[b]";
+      String text3 ="[person]-[employee][person]-[employer][employee]-[worker]";
       classDiagramReader a = new classDiagramReader();
       JFrame frame = new JFrame();
 
-      Icon icon = new GraphIcon(a.read(text2));
+      Icon icon = new GraphIcon(a.read(text3));
       final JLabel label = new JLabel(icon);
       frame.setLayout(new FlowLayout());
       frame.add(label);
@@ -60,12 +61,12 @@ public class classDiagramReader
                nameA += comand.charAt(count);
                count++;
             }
-            //find operand
-            String operand = "";
+            //find operator
+            String operator = "";
             count++;
             while(count < comand.length() && comand.charAt(count) != '[')
             {
-               operand += comand.charAt(count);
+               operator += comand.charAt(count);
                count++;
             }
             //find nodeB        
@@ -79,7 +80,7 @@ public class classDiagramReader
             }
             
             if(nameA != "" && nameB != "") 
-               connect(nameA,nameB,operand);
+               connect(nameA,nameB,operator);
           }//end while          
        }// end while
       
@@ -93,7 +94,7 @@ public class classDiagramReader
             {
                nodes.add(new Node(nodeA));
                nodes.add(new Node(nodeB));
-               operator(nodes.get(0),nodes.get(1),op);
+               operate(nodes.get(0),nodes.get(1),op);
             }
             else
             {
@@ -111,10 +112,10 @@ public class classDiagramReader
                   indexB = nodes.size()-1;
                }
                
-               operator(nodes.get(indexA),nodes.get(indexB),op);
+               operate(nodes.get(indexA),nodes.get(indexB),op);
              }   
    }
-   private void operator(Node a,Node b,String op)
+   private void operate(Node a,Node b,String op)
    {
       if("-".compareTo(op) == 0)
          a.connectNeighbor(b);
