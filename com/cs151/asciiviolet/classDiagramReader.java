@@ -15,10 +15,11 @@ public class classDiagramReader
    public static void main(String args[])
    {
       String text ="[a]-[b]\n[a]-[c]\n[d]-[b]\n[d]-[c]\n[e]-[b]\n[e]-[f]\n[e]-[g]\n[g]-[f]\n[g]-[h]\n[g]-[i]" ;
+      String text2 ="[a]-[b][a]-[c][d]-[b]";
       classDiagramReader a = new classDiagramReader();
       JFrame frame = new JFrame();
 
-      Icon icon = new GraphIcon(a.read(text));
+      Icon icon = new GraphIcon(a.read(text2));
       final JLabel label = new JLabel(icon);
       frame.setLayout(new FlowLayout());
       frame.add(label);
@@ -36,76 +37,88 @@ public class classDiagramReader
    {
       Scanner s = new Scanner(input);
       Graph aGraph = new Graph(80);
-      ArrayList<Node> nodes = new ArrayList<>();
+      nodes = new ArrayList<>();
       String comand = "";
       
       while(s.hasNext())
       {
          comand = s.nextLine();
          int count = 0;
-         while(comand.charAt(count) != '[')
+         
+         while(count < comand.length())
          {
+            //find nodeA
+            while(count < comand.length() && comand.charAt(count) != '[' )
+            {  
+               count++;
+            }         
+            String nameA = "";
             count++;
-         }
          
-         String nameA = "";
-         count++;
-         
-         while(comand.charAt(count) != ']')
-         {
-            nameA += comand.charAt(count);
+            while(count < comand.length() && comand.charAt(count) != ']')
+            {
+               nameA += comand.charAt(count);
+               count++;
+            }
+            //find operand
+            String operand = "";
             count++;
-         }
-         
-         String nodeA = nameA;
-         
-         while(comand.charAt(count) != '[')
-         {
+            while(count < comand.length() && comand.charAt(count) != '[')
+            {
+               operand += comand.charAt(count);
+               count++;
+            }
+            //find nodeB        
+            String nameB = "";
             count++;
-         }
          
-         String nameB = "";
-         count++;
-         
-         while(comand.charAt(count) != ']')
-         {
-            nameB += comand.charAt(count);
-            count++;
-         }
-         
-         String nodeB = nameB;
-         
-         
-         if (nodes.size() == 0)
-         {
-            nodes.add(new Node(nodeA));
-            nodes.add(new Node(nodeB));
-            nodes.get(0).connectNeighbor(nodes.get(1));
-         }
-         else
-         {
-            int indexA = find(nodeA,nodes);
-            int indexB = find(nodeB,nodes);
+            while(count < comand.length() && comand.charAt(count) != ']')
+            {
+               nameB += comand.charAt(count);
+               count++;
+            }
             
-            if(indexA == -99)
-            {
-               nodes.add(new Node(nodeA));
-               indexA = nodes.size()-1;
-            }
-            if(indexB == -99)
-            {
-               nodes.add(new Node(nodeB));
-               indexB = nodes.size()-1;
-            }
-            nodes.get(indexA).connectNeighbor(nodes.get(indexB));
-         }
-         
-      }// end while
+            if(nameA != "" && nameB != "") 
+               connect(nameA,nameB,operand);
+          }//end while          
+       }// end while
       
       for(int i = 0;i < nodes.size();i++)
         aGraph.addNode(nodes.get(i));
 	   return aGraph;     
-   } 
+   }  
+   private void connect(String nodeA, String nodeB, String op)
+   {
+      if (nodes.size() == 0)
+            {
+               nodes.add(new Node(nodeA));
+               nodes.add(new Node(nodeB));
+               operator(nodes.get(0),nodes.get(1),op);
+            }
+            else
+            {
+               int indexA = find(nodeA,nodes);
+               int indexB = find(nodeB,nodes);
+            
+               if(indexA == -99)
+               {
+                  nodes.add(new Node(nodeA));
+                  indexA = nodes.size()-1;
+               }
+               if(indexB == -99)
+               {
+                  nodes.add(new Node(nodeB));
+                  indexB = nodes.size()-1;
+               }
+               
+               operator(nodes.get(indexA),nodes.get(indexB),op);
+             }   
+   }
+   private void operator(Node a,Node b,String op)
+   {
+      if("-".compareTo(op) == 0)
+         a.connectNeighbor(b);
+   }
    private int find(String cn , ArrayList<Node> nodes)
    {
       int result = -99;
@@ -118,5 +131,6 @@ public class classDiagramReader
          }
       return result; 
    }
-   
+ 
+   private ArrayList<Node> nodes;
 }
