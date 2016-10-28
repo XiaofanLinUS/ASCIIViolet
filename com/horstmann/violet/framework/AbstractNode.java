@@ -30,16 +30,15 @@ import java.beans.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
-   A class that supplies convenience implementations for 
-   a number of methods in the Node interface
-*/
+ * A class that supplies convenience implementations for a number of methods in
+ * the Node interface
+ */
 public abstract class AbstractNode implements Node
 {
    /**
-      Constructs a node with no parents or children.
-   */
+    * Constructs a node with no parents or children.
+    */
    public AbstractNode()
    {
       children = new ArrayList();
@@ -50,19 +49,36 @@ public abstract class AbstractNode implements Node
    {
       try
       {
-         AbstractNode cloned = (AbstractNode)super.clone();
+         AbstractNode cloned = (AbstractNode) super.clone();
          cloned.children = new ArrayList(children.size());
          for (int i = 0; i < children.size(); i++)
          {
-            Node n = (Node)children.get(i);
+            Node n = (Node) children.get(i);
             cloned.children.set(i, n.clone());
             n.setParent(cloned);
          }
          return cloned;
-      }
-      catch (CloneNotSupportedException exception)
+      } catch (CloneNotSupportedException exception)
       {
          return null;
+      }
+   }
+
+   public void setX(double x)
+   {
+      for (int i = 0; i < children.size(); i++)
+      {
+         Node n = (Node) children.get(i);
+         n.setX(x);
+      }
+   }
+
+   public void setY(double y)
+   {
+      for (int i = 0; i < children.size(); i++)
+      {
+         Node n = (Node) children.get(i);
+         n.setX(y);
       }
    }
 
@@ -70,7 +86,7 @@ public abstract class AbstractNode implements Node
    {
       for (int i = 0; i < children.size(); i++)
       {
-         Node n = (Node)children.get(i);
+         Node n = (Node) children.get(i);
          n.translate(dx, dy);
       }
    }
@@ -86,8 +102,10 @@ public abstract class AbstractNode implements Node
 
    public void removeNode(Graph g, Node e)
    {
-      if (e == parent) parent = null; 
-      if (e.getParent() == this) children.remove(e);
+      if (e == parent)
+         parent = null;
+      if (e.getParent() == this)
+         children.remove(e);
    }
 
    public void layout(Graph g, Graphics2D g2, Grid grid)
@@ -99,13 +117,22 @@ public abstract class AbstractNode implements Node
       return false;
    }
 
-   public Node getParent() { return parent; }
+   public Node getParent()
+   {
+      return parent;
+   }
 
-   public void setParent(Node node) { parent = node; }
+   public void setParent(Node node)
+   {
+      parent = node;
+   }
 
-   public List getChildren() { return children; }
+   public List getChildren()
+   {
+      return children;
+   }
 
-   public void addChild(int index, Node node) 
+   public void addChild(int index, Node node)
    {
       Node oldParent = node.getParent();
       if (oldParent != null)
@@ -121,7 +148,8 @@ public abstract class AbstractNode implements Node
 
    public void removeChild(Node node)
    {
-      if (node.getParent() != this) return;
+      if (node.getParent() != this)
+         return;
       children.remove(node);
       node.setParent(null);
    }
@@ -129,59 +157,59 @@ public abstract class AbstractNode implements Node
    public void draw(Graphics2D g2)
    {
       Shape shape = getShape();
-      if (shape == null) return;
+      if (shape == null)
+         return;
       /*
-      Area shadow = new Area(shape);
-      shadow.transform(AffineTransform.getTranslateInstance(SHADOW_GAP, SHADOW_GAP));
-      shadow.subtract(new Area(shape));
-      */
+       * Area shadow = new Area(shape);
+       * shadow.transform(AffineTransform.getTranslateInstance(SHADOW_GAP,
+       * SHADOW_GAP)); shadow.subtract(new Area(shape));
+       */
       Color oldColor = g2.getColor();
-      g2.translate(SHADOW_GAP, SHADOW_GAP);      
+      g2.translate(SHADOW_GAP, SHADOW_GAP);
       g2.setColor(SHADOW_COLOR);
       g2.fill(shape);
       g2.translate(-SHADOW_GAP, -SHADOW_GAP);
       g2.setColor(g2.getBackground());
-      g2.fill(shape);      
+      g2.fill(shape);
       g2.setColor(oldColor);
    }
-   
+
    private static final Color SHADOW_COLOR = Color.LIGHT_GRAY;
    public static final int SHADOW_GAP = 4;
-   
+
    /**
-       @return the shape to be used for computing the drop shadow
+    * @return the shape to be used for computing the drop shadow
     */
-   public Shape getShape() { return null; }   
-   
+   public Shape getShape()
+   {
+      return null;
+   }
+
    /**
-      Adds a persistence delegate to a given encoder that
-      encodes the child nodes of this node.
-      @param encoder the encoder to which to add the delegate
-   */
+    * Adds a persistence delegate to a given encoder that encodes the child
+    * nodes of this node.
+    * 
+    * @param encoder
+    *           the encoder to which to add the delegate
+    */
    public static void setPersistenceDelegate(Encoder encoder)
    {
-      encoder.setPersistenceDelegate(AbstractNode.class, new
-         DefaultPersistenceDelegate()
+      encoder.setPersistenceDelegate(AbstractNode.class, new DefaultPersistenceDelegate()
+      {
+         protected void initialize(Class type, Object oldInstance, Object newInstance, Encoder out)
          {
-            protected void initialize(Class type, 
-               Object oldInstance, Object newInstance, 
-               Encoder out) 
+            super.initialize(type, oldInstance, newInstance, out);
+            Node n = (Node) oldInstance;
+            List children = n.getChildren();
+            for (int i = 0; i < children.size(); i++)
             {
-               super.initialize(type, oldInstance, 
-                  newInstance, out);
-               Node n = (Node)oldInstance;
-               List children = n.getChildren();
-               for (int i = 0; i < children.size(); i++)
-               {
-                  Node c = (Node)children.get(i);
-                  out.writeStatement(
-                     new Statement(oldInstance,
-                        "addChild", new Object[]{ c }) );            
-               }
+               Node c = (Node) children.get(i);
+               out.writeStatement(new Statement(oldInstance, "addChild", new Object[] { c }));
             }
-         });
+         }
+      });
    }
+
    private ArrayList children;
    private Node parent;
 }
-

@@ -2,9 +2,9 @@ package com.cs151.asciiviolet;
 
 import java.util.ArrayList;
 
-public class Node
+public class Node1
 {
-   public Node()
+   public Node1()
    {
      this.name = "";
       forceX = 0;
@@ -15,7 +15,7 @@ public class Node
       visitedNeighbors = new ArrayList<>();
    }
    
-   public Node(String name)
+   public Node1(String name)
    {
       this.name = name;
       forceX = 0;
@@ -76,18 +76,18 @@ public class Node
       return neighbors.size();
    }
 
-   public void connectNeighbor(Node aNeighbors)
+   public void connectNeighbor(Node1 aNeighbors)
    {
       aNeighbors.neighbors.add(this);
       neighbors.add(aNeighbors);
    }
 
-   public void visit(Node aNeightbor)
+   public void visit(Node1 aNeightbor)
    {
       visitedNeighbors.add(aNeightbor);
    }
 
-   public boolean visited(Node aNeightbor)
+   public boolean visited(Node1 aNeightbor)
    {
       return visitedNeighbors.contains(aNeightbor);
    }
@@ -97,7 +97,7 @@ public class Node
       visitedNeighbors = new ArrayList<>();
    }
 
-   public Node getNeighbor(int i)
+   public Node1 getNeighbor(int i)
    {
       return neighbors.get(i);
    }
@@ -108,7 +108,7 @@ public class Node
       return result;
    }
    private String name;
-   private ArrayList<Node> neighbors;
-   private ArrayList<Node> visitedNeighbors;
+   private ArrayList<Node1> neighbors;
+   private ArrayList<Node1> visitedNeighbors;
    private double forceX, forceY, x, y;
 }

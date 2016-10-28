@@ -27,17 +27,15 @@ import java.awt.geom.Rectangle2D;
 import com.horstmann.violet.framework.AbstractNode;
 import com.horstmann.violet.framework.Direction;
 
-
 /**
-   An inivisible node that is used in the toolbar to draw an
-   edge, and in notes to serve as an end point of the node
-   connector.
-*/
+ * An inivisible node that is used in the toolbar to draw an edge, and in notes
+ * to serve as an end point of the node connector.
+ */
 public class PointNode extends AbstractNode
 {
    /**
-      Constructs a point node with coordinates (0, 0)
-   */
+    * Constructs a point node with coordinates (0, 0)
+    */
    public PointNode()
    {
       point = new Point2D.Double();
@@ -49,8 +47,7 @@ public class PointNode extends AbstractNode
 
    public void translate(double dx, double dy)
    {
-      point.setLocation(point.getX() + dx,
-         point.getY() + dy);
+      point.setLocation(point.getX() + dx, point.getY() + dy);
    }
 
    public boolean contains(Point2D p)
@@ -61,8 +58,7 @@ public class PointNode extends AbstractNode
 
    public Rectangle2D getBounds()
    {
-      return new Rectangle2D.Double(point.getX(), 
-         point.getY(), 0, 0);
+      return new Rectangle2D.Double(point.getX(), point.getY(), 0, 0);
    }
 
    public Point2D getConnectionPoint(Direction d)
@@ -71,4 +67,16 @@ public class PointNode extends AbstractNode
    }
 
    private Point2D point;
+
+   @Override
+   public double getX()
+   {
+      return point.getX();
+   }
+
+   @Override
+   public double getY()
+   {
+      return point.getY();
+   }
 }

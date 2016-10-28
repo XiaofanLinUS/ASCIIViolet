@@ -22,14 +22,14 @@ package com.horstmann.violet;
 
 import java.awt.geom.Point2D;
 
+import com.cs151.asciiviolet.SmartGraph;
 import com.horstmann.violet.framework.Edge;
-import com.horstmann.violet.framework.Graph;
 import com.horstmann.violet.framework.Node;
 
 /**
-   A UML class diagram.
-*/
-public class ClassDiagramGraph extends Graph
+ * A UML class diagram.
+ */
+public class ClassDiagramGraph extends SmartGraph
 {
 
    public boolean connect(Edge e, Point2D p1, Point2D p2)
@@ -94,8 +94,3 @@ public class ClassDiagramGraph extends Graph
       EDGE_PROTOTYPES[6] = new NoteEdge();
    }
 }
-
-
-
-
-

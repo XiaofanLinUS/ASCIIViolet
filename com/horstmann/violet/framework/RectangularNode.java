@@ -29,25 +29,43 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-
 /**
-   A node that has a rectangular shape.
-*/
+ * A node that has a rectangular shape.
+ */
 public abstract class RectangularNode extends AbstractNode
 {
    public Object clone()
    {
-      RectangularNode cloned = (RectangularNode)super.clone();
-      cloned.bounds = (Rectangle2D)bounds.clone();
+      RectangularNode cloned = (RectangularNode) super.clone();
+      cloned.bounds = (Rectangle2D) bounds.clone();
       return cloned;
+   }
+
+   public double getX()
+   {
+      return bounds.getX();
+   }
+
+   public double getY()
+   {
+      return bounds.getY();
+   }
+
+   public void setX(double x)
+   {
+      bounds.setFrame(x, bounds.getY(), bounds.getWidth(), bounds.getHeight());
+      super.setX(x);
+   }
+
+   public void setY(double y)
+   {
+      bounds.setFrame(bounds.getX(), y, bounds.getWidth(), bounds.getHeight());
+      super.setX(y);
    }
 
    public void translate(double dx, double dy)
    {
-      bounds.setFrame(bounds.getX() + dx,
-         bounds.getY() + dy, 
-         bounds.getWidth(), 
-         bounds.getHeight());
+      bounds.setFrame(bounds.getX() + dx, bounds.getY() + dy, bounds.getWidth(), bounds.getHeight());
       super.translate(dx, dy);
    }
 
@@ -58,7 +76,7 @@ public abstract class RectangularNode extends AbstractNode
 
    public Rectangle2D getBounds()
    {
-      return (Rectangle2D)bounds.clone();
+      return (Rectangle2D) bounds.clone();
    }
 
    public void setBounds(Rectangle2D newBounds)
@@ -78,30 +96,27 @@ public abstract class RectangularNode extends AbstractNode
       double ey = d.getY();
       double x = bounds.getCenterX();
       double y = bounds.getCenterY();
-      
+
       if (ex != 0 && -slope <= ey / ex && ey / ex <= slope)
-      {  
+      {
          // intersects at left or right boundary
-         if (ex > 0) 
+         if (ex > 0)
          {
             x = bounds.getMaxX();
             y += (bounds.getWidth() / 2) * ey / ex;
-         }
-         else
+         } else
          {
             x = bounds.getX();
             y -= (bounds.getWidth() / 2) * ey / ex;
          }
-      }
-      else if (ey != 0)
-      {  
+      } else if (ey != 0)
+      {
          // intersects at top or bottom
-         if (ey > 0) 
+         if (ey > 0)
          {
             x += (bounds.getHeight() / 2) * ex / ey;
             y = bounds.getMaxY();
-         }
-         else
+         } else
          {
             x -= (bounds.getHeight() / 2) * ex / ey;
             y = bounds.getY();
@@ -110,24 +125,22 @@ public abstract class RectangularNode extends AbstractNode
       return new Point2D.Double(x, y);
    }
 
-   private void writeObject(ObjectOutputStream out)
-      throws IOException
+   private void writeObject(ObjectOutputStream out) throws IOException
    {
       out.defaultWriteObject();
       writeRectangularShape(out, bounds);
    }
 
    /**
-      A helper method to overcome the problem that the 2D shapes
-      aren't serializable. It writes x, y, width and height
-      to the stream.
-      @param out the stream
-      @param s the shape      
-   */
-   private static void writeRectangularShape(
-      ObjectOutputStream out, 
-      RectangularShape s)
-      throws IOException
+    * A helper method to overcome the problem that the 2D shapes aren't
+    * serializable. It writes x, y, width and height to the stream.
+    * 
+    * @param out
+    *           the stream
+    * @param s
+    *           the shape
+    */
+   private static void writeRectangularShape(ObjectOutputStream out, RectangularShape s) throws IOException
    {
       out.writeDouble(s.getX());
       out.writeDouble(s.getY());
@@ -135,24 +148,23 @@ public abstract class RectangularNode extends AbstractNode
       out.writeDouble(s.getHeight());
    }
 
-   private void readObject(ObjectInputStream in)
-      throws IOException, ClassNotFoundException
+   private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException
    {
       in.defaultReadObject();
       bounds = new Rectangle2D.Double();
       readRectangularShape(in, bounds);
    }
-   
+
    /**
-      A helper method to overcome the problem that the 2D shapes
-      aren't serializable. It reads x, y, width and height
-      from the stream.
-      @param in the stream
-      @param s the shape whose frame is set from the stream values
-   */
-   private static void readRectangularShape(ObjectInputStream in,
-      RectangularShape s)
-      throws IOException
+    * A helper method to overcome the problem that the 2D shapes aren't
+    * serializable. It reads x, y, width and height from the stream.
+    * 
+    * @param in
+    *           the stream
+    * @param s
+    *           the shape whose frame is set from the stream values
+    */
+   private static void readRectangularShape(ObjectInputStream in, RectangularShape s) throws IOException
    {
       double x = in.readDouble();
       double y = in.readDouble();
@@ -165,6 +177,6 @@ public abstract class RectangularNode extends AbstractNode
    {
       return bounds;
    }
-   
+
    private transient Rectangle2D bounds;
 }
