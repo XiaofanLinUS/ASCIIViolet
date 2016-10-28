@@ -10,7 +10,7 @@ public interface LayoutPlanner
 
    static LayoutPlanner defaultPlan(ArrayList<Node> nodes, ArrayList<Edge> edges)
    {
-      return new ForceDirectedLayout(200, nodes, edges);
+      return new ForceDirectedLayout(150, nodes, edges);
    }
 
    void refresh();

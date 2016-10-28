@@ -146,7 +146,7 @@ public class ForceDirectedLayout implements LayoutPlanner
             dx = dx * s;
             dy = dy * s;
          }
-         if (dx > 0.00009 || dy > 0.00009)
+         if (dx > 0.09 || dy > 0.09)
          {
             done = false;
          }
