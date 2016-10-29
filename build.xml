@@ -72,5 +72,15 @@
          <fileset dir="${basedir}" includes="${jnlpfile}" />
       </delete>
    </target>
+
+
+   <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties"
+         classpath="${srcdir}/checkstyle-7.1.2-all.jar"/>
+
+   <target name="checkstyle" description="Run checkstyle">
+     <checkstyle config="checkstyle.xml">
+       <fileset dir="com/horstmann/violet" includes="**/*.java"/>
+     </checkstyle>
+   </target>
    
 </project>
