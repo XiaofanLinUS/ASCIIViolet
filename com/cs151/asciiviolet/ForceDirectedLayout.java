@@ -54,9 +54,7 @@ public class ForceDirectedLayout implements LayoutPlanner
       double Yminimum = minY();
       for (Node node : nodes)
       {
-
-         node.setX(node.getX() - Xminimum);
-         node.setY(node.getY() - Yminimum);
+         node.translate(-Xminimum + 10, -Yminimum + 10);
       }
    }
 
@@ -227,7 +225,7 @@ public class ForceDirectedLayout implements LayoutPlanner
 
    private double K_S;
    private double l;
-   private double MAX_DISPLACEMENT_SQUARED = 9000;
+   private double MAX_DISPLACEMENT_SQUARED = 1020;
    private boolean done;
 
 }

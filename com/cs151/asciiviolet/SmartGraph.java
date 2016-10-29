@@ -3,8 +3,6 @@ package com.cs151.asciiviolet;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import javax.swing.Timer;
-
 import com.horstmann.violet.framework.Edge;
 import com.horstmann.violet.framework.Graph;
 import com.horstmann.violet.framework.Node;
@@ -40,6 +38,4 @@ public abstract class SmartGraph extends Graph
    }
 
    LayoutPlanner plan;
-   Timer t;
-   final int DELAY = 100;
 }
