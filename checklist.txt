@@ -1,0 +1,9 @@
+Week 1
+
+Reports for all team members: No
+
+Ly no total
+
+Wiki doc with features: Ok
+Issues: Ok
+Code and build script: Ok
