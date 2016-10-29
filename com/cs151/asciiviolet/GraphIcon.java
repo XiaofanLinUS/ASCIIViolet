@@ -21,7 +21,7 @@ public class GraphIcon implements Icon
 
    public void paintIcon(Component c, Graphics g, int x, int y)
    {
-      Node node1, node2;
+      Node1 node1, node2;
       Point2D point1, point2;
 
       Graphics2D g2 = (Graphics2D) g;

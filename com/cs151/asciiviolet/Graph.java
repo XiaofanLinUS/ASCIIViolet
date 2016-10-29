@@ -11,13 +11,13 @@ public class Graph
       nodes = new ArrayList<>();
    }
 
-   public void addNode(Node aNode)
+   public void addNode(Node1 aNode)
    {
       nodes.add(aNode);
       move();
    }
 
-   public Node getNode(int i)
+   public Node1 getNode(int i)
    {
       return nodes.get(i);
    }
@@ -41,7 +41,7 @@ public class Graph
    {
       double Xminimum = minX();
       double Yminimum = minY();
-      for (Node node : nodes)
+      for (Node1 node : nodes)
       {
 
          node.setX(node.getX() - Xminimum + l);
@@ -52,7 +52,7 @@ public class Graph
    private void moveNodes()
    {
       double dx, dy, distanceSquared, distance, force, fx, fy, s;
-      Node node1, node2;
+      Node1 node1, node2;
       int n = nodes.size();
       initialize();
 
@@ -146,7 +146,7 @@ public class Graph
    public double maxX()
    {
       double max = Double.MIN_VALUE;
-      for (Node aNode : nodes)
+      for (Node1 aNode : nodes)
       {
          if (aNode.getX() > max)
          {
@@ -159,7 +159,7 @@ public class Graph
    public double maxY()
    {
       double max = Double.MIN_VALUE;
-      for (Node aNode : nodes)
+      for (Node1 aNode : nodes)
       {
          if (aNode.getY() > max)
          {
@@ -172,7 +172,7 @@ public class Graph
    public double minX()
    {
       double min = Double.MAX_VALUE;
-      for (Node aNode : nodes)
+      for (Node1 aNode : nodes)
       {
          if (aNode.getX() < min)
          {
@@ -185,7 +185,7 @@ public class Graph
    public double minY()
    {
       double min = Double.MAX_VALUE;
-      for (Node aNode : nodes)
+      for (Node1 aNode : nodes)
       {
          if (aNode.getY() < min)
          {
@@ -218,7 +218,7 @@ public class Graph
       }
    }
 
-   private ArrayList<Node> nodes;
+   private ArrayList<Node1> nodes;
 
    private static final double R = 1;
    private static final double K_R = 8000;

@@ -92,8 +92,8 @@ public class classDiagramReader
    {
       if (nodes.size() == 0)
             {
-               nodes.add(new Node(nodeA));
-               nodes.add(new Node(nodeB));
+               nodes.add(new Node1(nodeA));
+               nodes.add(new Node1(nodeB));
                operate(nodes.get(0),nodes.get(1),op);
             }
             else
@@ -103,24 +103,24 @@ public class classDiagramReader
             
                if(indexA == -99)
                {
-                  nodes.add(new Node(nodeA));
+                  nodes.add(new Node1(nodeA));
                   indexA = nodes.size()-1;
                }
                if(indexB == -99)
                {
-                  nodes.add(new Node(nodeB));
+                  nodes.add(new Node1(nodeB));
                   indexB = nodes.size()-1;
                }
                
                operate(nodes.get(indexA),nodes.get(indexB),op);
              }   
    }
-   private void operate(Node a,Node b,String op)
+   private void operate(Node1 a,Node1 b,String op)
    {
       if("-".compareTo(op) == 0)
          a.connectNeighbor(b);
    }
-   private int find(String cn , ArrayList<Node> nodes)
+   private int find(String cn , ArrayList<Node1> nodes)
    {
       int result = -99;
       for(int i = 0;i < nodes.size() && result == -99 ;i++)
@@ -133,5 +133,5 @@ public class classDiagramReader
       return result; 
    }
  
-   private ArrayList<Node> nodes;
+   private ArrayList<Node1> nodes;
 }
