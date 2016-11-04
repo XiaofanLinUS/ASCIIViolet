@@ -28,7 +28,6 @@ public class TextBar extends JPanel {
 	}
 	private void getInput(){
 		userInput = textfield.getText();
-		System.out.println(userInput);
 	}
 }
 
