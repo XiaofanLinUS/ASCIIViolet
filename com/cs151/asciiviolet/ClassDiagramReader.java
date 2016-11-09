@@ -67,8 +67,6 @@ public class ClassDiagramReader
          } // end while
       } // end while
 
-      for (int i = 0; i < nodes.size(); i++)
-         graph.add(nodes.get(i), new Point2D.Double(500 * Math.random() + 50, 500 * Math.random() + 50));
    }
 
    private void connect(String a, String b, String op)
@@ -82,7 +80,7 @@ public class ClassDiagramReader
          MultiLineString string1 = new MultiLineString();
          string1.setText(a);
          nodeA.setName(string1);
-         nodes.add(nodeA);
+         graph.add(nodeA, new Point2D.Double(80 * Math.random(), 80 * Math.random()));
       }
 
       if (find(b) == null)
@@ -91,7 +89,7 @@ public class ClassDiagramReader
          MultiLineString string2 = new MultiLineString();
          string2.setText(b);
          nodeB.setName(string2);
-         nodes.add(nodeB);
+         graph.add(nodeB, new Point2D.Double(80 * Math.random(), 80 * Math.random()));
       }
 
       operate(nodeA, nodeB, op);
@@ -115,7 +113,6 @@ public class ClassDiagramReader
       {
          if (node.getName().getText().equals(name))
          {
-            System.out.println(name);
             return node;
          }
       }

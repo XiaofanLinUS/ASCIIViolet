@@ -321,7 +321,7 @@ public class GraphPanel extends JPanel
       setModified(false);
 
       ClassDiagramReader reader = new ClassDiagramReader((ClassDiagramGraph) graph);
-      String anInput = "[a]-[b]\n\n[a]-[c]";
+      String anInput = "[a]-[b]";
       reader.read(anInput);
 
       revalidate();

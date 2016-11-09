@@ -27,6 +27,12 @@ public abstract class SmartGraph extends Graph
       return success;
    }
 
+   public void connect(Edge e, Node start, Node end)
+   {
+      super.connect(e, start, end);
+      refresh();
+   }
+
    public void refresh()
    {
       plan.refresh();
