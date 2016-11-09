@@ -62,7 +62,7 @@
       </replace>
    </target>
    
-   <target name="all" depends="jar,jnlp" />
+   <target name="all" depends="jar,jnlp, checkstyle" />
    
    
    <target name="clean" depends="init" description="Clean everything.">
