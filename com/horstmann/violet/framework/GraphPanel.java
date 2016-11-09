@@ -45,6 +45,9 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.cs151.asciiviolet.ClassDiagramReader;
+import com.horstmann.violet.ClassDiagramGraph;
+
 /**
  * A panel to draw a graph
  */
@@ -58,6 +61,7 @@ public class GraphPanel extends JPanel
     */
    public GraphPanel(ToolBar aToolBar)
    {
+
       grid = new Grid();
       gridSize = GRID;
       grid.setGrid((int) gridSize, (int) gridSize);
@@ -220,7 +224,6 @@ public class GraphPanel extends JPanel
                   {
                      Node n = (Node) selected;
                      n.translate(dx, dy);
-                     System.out.println(n.getX());
                   }
                }
                // we don't want continuous layout any more because of multiple
@@ -316,6 +319,11 @@ public class GraphPanel extends JPanel
    {
       graph = aGraph;
       setModified(false);
+
+      ClassDiagramReader reader = new ClassDiagramReader((ClassDiagramGraph) graph);
+      String anInput = "[a]-[b]\n\n[a]-[c]";
+      reader.read(anInput);
+
       revalidate();
       repaint();
    }
