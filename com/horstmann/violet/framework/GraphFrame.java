@@ -47,8 +47,9 @@ public class GraphFrame extends JInternalFrame
    {
       graph = aGraph;
       toolBar = new ToolBar(graph);
-      TextBar toolBar1 = new TextBar();//add textbar
-      panel = new GraphPanel(toolBar); //toolbar    
+      panel = new GraphPanel(toolBar); //toolbar
+      TextBar toolBar1 = new TextBar((ClassDiagramGraph) graph, panel);//add textbar
+      
       Container contentPane = getContentPane();
       contentPane.add(toolBar1, BorderLayout.NORTH); //toolBar
       contentPane.add(new JScrollPane(panel), BorderLayout.CENTER);
@@ -124,7 +125,7 @@ public class GraphFrame extends JInternalFrame
       fileName = newValue;
       setTitle(newValue);
    }
-
+   private String userInput;
    private Graph graph;
    private GraphPanel panel;
    private ToolBar toolBar;

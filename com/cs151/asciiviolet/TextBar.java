@@ -7,6 +7,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import com.horstmann.violet.ClassDiagramGraph;
+import com.horstmann.violet.framework.GraphPanel;
+
 /**
  * A TextBar that receives string
  * 
@@ -17,31 +20,39 @@ public class TextBar extends JPanel
    private String userInput;
    private JTextArea textfield;
    private JButton button;
-
+   private ClassDiagramGraph graph;
+   private GraphPanel panel;
+   private ClassDiagramReader reader;
    /**
     * Construct a TextBar
     */
-   public TextBar()
+   public TextBar(ClassDiagramGraph aGraph, GraphPanel aPanel)
    {
-
+	  reader = new ClassDiagramReader(aGraph);
+	  panel = aPanel;
       setLayout(new BorderLayout());
+      graph = aGraph;
       userInput = "";
       textfield = new JTextArea();
       textfield.setPreferredSize(new Dimension(200, 100));
       button = new JButton("draw");
 
       button.addActionListener((e) -> {
-         getInput();
+         executeCommand();
       });
 
       add(textfield, BorderLayout.SOUTH);
       add(button, BorderLayout.NORTH);
    }
 
-   private void getInput()
+private void executeCommand()
    {
       userInput = textfield.getText();
+      reader.read(userInput);
+      panel.setModified(true);
+      panel.repaint();
+
    }
    
-   private String getUserInput(){ return userInput;}
+   public String getUserInput(){ return userInput;}
 }
