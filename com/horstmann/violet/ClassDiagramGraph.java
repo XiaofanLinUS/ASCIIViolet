@@ -65,6 +65,7 @@ public class ClassDiagramGraph extends SmartGraph
       dependency.setLineStyle(LineStyle.DOTTED);
       dependency.setEndArrowHead(ArrowHead.V);
       EDGE_PROTOTYPES[0] = dependency;
+      
       ClassRelationshipEdge inheritance = new ClassRelationshipEdge();
       inheritance.setBentStyle(BentStyle.VHV);
       inheritance.setEndArrowHead(ArrowHead.TRIANGLE);

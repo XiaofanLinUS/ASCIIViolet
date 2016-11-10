@@ -53,10 +53,10 @@ public class layoutTester
       Icon icon = new GraphIcon(a.read(text));
 
       //Icon icon = new GraphIcon(aGraph);
-
+      TextBar t = new TextBar();
       final JLabel label = new JLabel(icon);
       frame.setLayout(new FlowLayout());
-      frame.add(label);
+      frame.add(t);
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.pack();
       frame.setVisible(true);
