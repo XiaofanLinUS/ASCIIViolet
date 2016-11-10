@@ -1,5 +1,7 @@
 package com.cs151.asciiviolet;
 
+import com.horstmann.violet.*;
+import com.horstmann.violet.framework.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
@@ -28,7 +30,7 @@ public class TextBar extends JPanel {
 	}
 	private void getInput(){
 		userInput = textfield.getText();
-	}
+   }
 }
 
 	

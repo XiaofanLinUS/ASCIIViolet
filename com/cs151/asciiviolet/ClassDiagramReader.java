@@ -22,48 +22,51 @@ public class ClassDiagramReader
    public void read(String input)
    {
       Scanner s = new Scanner(input);
-      String comand = "";
+      String command = "";
 
       while (s.hasNext())
       {
-         comand = s.nextLine();
+         command = s.nextLine();
          int count = 0;
 
-         while (count < comand.length())
+         while (count < command.length())
          {
             // find nodeA
-            while (count < comand.length() && comand.charAt(count) != '[')
+            while (count < command.length() && command.charAt(count) != '[')
             {
                count++;
             }
             String nameA = "";
             count++;
 
-            while (count < comand.length() && comand.charAt(count) != ']')
+            while (count < command.length() && command.charAt(count) != ']')
             {
-               nameA += comand.charAt(count);
+               nameA += command.charAt(count);
                count++;
             }
             // find operator
             String operator = "";
             count++;
-            while (count < comand.length() && comand.charAt(count) != '[')
+            while (count < command.length() && command.charAt(count) != '[')
             {
-               operator += comand.charAt(count);
+               operator += command.charAt(count);
                count++;
             }
             // find nodeB
             String nameB = "";
             count++;
 
-            while (count < comand.length() && comand.charAt(count) != ']')
+            while (count < command.length() && command.charAt(count) != ']')
             {
-               nameB += comand.charAt(count);
+               nameB += command.charAt(count);
                count++;
             }
-
+            //for the case of two nodes.
             if (nameA != "" && nameB != "")
                connect(nameA, nameB, operator);
+            //for the case of only one node.   
+            else if (nameA != "" && nameB =="")
+               createClassNode(nameA);
          } // end while
       } // end while
 
@@ -98,6 +101,19 @@ public class ClassDiagramReader
       }
 
       operate(nodeA, nodeB, op);
+   }
+   private void createClassNode(String name)
+   {
+      ClassNode node = find(name);
+
+      if (node == null)
+      {
+         node = new ClassNode();
+         MultiLineString string = new MultiLineString();
+         string.setText(name);
+         node.setName(string);
+         nodes.add(node);
+      }
    }
 
    private void operate(ClassNode a, ClassNode b, String op)
@@ -138,6 +154,7 @@ public class ClassDiagramReader
          edge = (Edge) graph.getEdgePrototypes()[6].clone();
          graph.connect(edge, a, b);
       }
+      
    }
 
    private ClassNode find(String name)
