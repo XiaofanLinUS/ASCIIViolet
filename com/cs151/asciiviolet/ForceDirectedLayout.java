@@ -21,14 +21,12 @@ public class ForceDirectedLayout implements LayoutPlanner
    public void refresh()
    {
       done = false;
-      System.out.println("refresh");
       move();
    }
 
    private void initializeForce(Node node)
    {
 
-      System.out.println("initializeForce");
       ArrayList<Double> force = new ArrayList<>();
       force.add(0.0);
       force.add(0.0);
@@ -38,7 +36,6 @@ public class ForceDirectedLayout implements LayoutPlanner
 
    private void move()
    {
-      System.out.println("move");
       while (!done)
       {
          moveNodes();
@@ -49,7 +46,6 @@ public class ForceDirectedLayout implements LayoutPlanner
    private void reset()
    {
 
-      System.out.println("reset");
       double Xminimum = minX();
       double Yminimum = minY();
       for (Node node : nodes)
@@ -66,7 +62,6 @@ public class ForceDirectedLayout implements LayoutPlanner
       int n = nodes.size();
       initialize();
 
-      System.out.println("moveNodes");
       for (int i = 0; i < n - 1; i++)
       {
          node1 = nodes.get(i);
@@ -116,6 +111,7 @@ public class ForceDirectedLayout implements LayoutPlanner
          node2 = e.getEnd();
          force1 = forces.get(node1);
          force2 = forces.get(node2);
+
          dx = node2.getX() - node1.getX();
          dy = node2.getY() - node1.getY();
          if (Math.abs(dx) >= 1 || Math.abs(dy) >= 1)
@@ -149,7 +145,6 @@ public class ForceDirectedLayout implements LayoutPlanner
             done = false;
          }
          node.translate(dx, dy);
-         System.out.println(dx + " " + dy);
       }
    }
 
@@ -207,7 +202,6 @@ public class ForceDirectedLayout implements LayoutPlanner
 
    private void initialize()
    {
-      System.out.println("initialize");
       done = true;
       for (Node node : nodes)
       {

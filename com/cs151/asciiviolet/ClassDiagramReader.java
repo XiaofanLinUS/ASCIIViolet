@@ -80,29 +80,62 @@ public class ClassDiagramReader
          MultiLineString string1 = new MultiLineString();
          string1.setText(a);
          nodeA.setName(string1);
-         graph.add(nodeA, new Point2D.Double(80 * Math.random(), 80 * Math.random()));
+         while (!graph.add(nodeA, new Point2D.Double(80 * Math.random(), 80 * Math.random())))
+         {
+         }
+
       }
 
-      if (find(b) == null)
+      if (nodeB == null)
       {
          nodeB = new ClassNode();
          MultiLineString string2 = new MultiLineString();
          string2.setText(b);
          nodeB.setName(string2);
-         graph.add(nodeB, new Point2D.Double(80 * Math.random(), 80 * Math.random()));
+         while (!graph.add(nodeB, new Point2D.Double(80 * Math.random(), 80 * Math.random())))
+         {
+         }
       }
 
       operate(nodeA, nodeB, op);
-
    }
 
    private void operate(ClassNode a, ClassNode b, String op)
    {
       Edge edge;
-      if ("-".compareTo(op) == 0)
+      if ("-->".compareTo(op) == 0)
       {
          edge = (Edge) graph.getEdgePrototypes()[0].clone();
-         edge.connect(a, b);
+         graph.connect(edge, a, b);
+      }
+      if ("-|>".compareTo(op) == 0)
+      {
+         edge = (Edge) graph.getEdgePrototypes()[1].clone();
+         graph.connect(edge, a, b);
+      }
+      if ("--|>".compareTo(op) == 0)
+      {
+         edge = (Edge) graph.getEdgePrototypes()[2].clone();
+         graph.connect(edge, a, b);
+      }
+      if ("->".compareTo(op) == 0)
+      {
+         edge = (Edge) graph.getEdgePrototypes()[3].clone();
+         graph.connect(edge, a, b);
+      }
+      if ("<>-".compareTo(op) == 0)
+      {
+         edge = (Edge) graph.getEdgePrototypes()[4].clone();
+         graph.connect(edge, a, b);
+      }
+      if ("<.>-".compareTo(op) == 0)
+      {
+         edge = (Edge) graph.getEdgePrototypes()[5].clone();
+         graph.connect(edge, a, b);
+      }
+      if ("--".compareTo(op) == 0)
+      {
+         edge = (Edge) graph.getEdgePrototypes()[6].clone();
          graph.connect(edge, a, b);
       }
    }
