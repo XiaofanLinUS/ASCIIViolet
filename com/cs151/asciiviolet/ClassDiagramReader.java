@@ -7,11 +7,23 @@ import java.util.Scanner;
 import com.horstmann.violet.ClassDiagramGraph;
 import com.horstmann.violet.ClassNode;
 import com.horstmann.violet.framework.Edge;
-import com.horstmann.violet.framework.MultiLineString;;
+import com.horstmann.violet.framework.MultiLineString;
 
+/**
+ * A command reader that reads a string and execute it
+ * 
+ * @author linxiaofan, benny3946
+ *
+ */
 public class ClassDiagramReader
 {
 
+   /**
+    * Construct a ClassDiagramReader with a given graph
+    * 
+    * @param aGraph
+    *           the given graph
+    */
    public ClassDiagramReader(ClassDiagramGraph aGraph)
    {
 
@@ -19,6 +31,12 @@ public class ClassDiagramReader
       nodes = (ArrayList<ClassNode>) graph.getNodes();
    }
 
+   /**
+    * Read the input and execute it
+    * 
+    * @param input
+    *           the given input
+    */
    public void read(String input)
    {
       Scanner s = new Scanner(input);
@@ -61,14 +79,15 @@ public class ClassDiagramReader
                nameB += command.charAt(count);
                count++;
             }
-
+            // for the case of two nodes.
             if (nameA != "" && nameB != "")
                connect(nameA, nameB, operator);
+            // for the case of only one node.
+            else if (nameA != "" && nameB == "")
+               createClassNode(nameA);
          } // end while
       } // end while
 
-      for (int i = 0; i < nodes.size(); i++)
-         graph.add(nodes.get(i), new Point2D.Double(500 * Math.random() + 50, 500 * Math.random() + 50));
    }
 
    private void connect(String a, String b, String op)
@@ -82,31 +101,79 @@ public class ClassDiagramReader
          MultiLineString string1 = new MultiLineString();
          string1.setText(a);
          nodeA.setName(string1);
-         nodes.add(nodeA);
+         while (!graph.add(nodeA, new Point2D.Double(80 * Math.random(), 80 * Math.random())))
+         {
+         }
+
       }
 
-      if (find(b) == null)
+      if (nodeB == null)
       {
          nodeB = new ClassNode();
          MultiLineString string2 = new MultiLineString();
          string2.setText(b);
          nodeB.setName(string2);
-         nodes.add(nodeB);
+         while (!graph.add(nodeB, new Point2D.Double(80 * Math.random(), 80 * Math.random())))
+         {
+         }
       }
 
       operate(nodeA, nodeB, op);
+   }
 
+   private void createClassNode(String name)
+   {
+      ClassNode node = find(name);
+
+      if (node == null)
+      {
+         node = new ClassNode();
+         MultiLineString string = new MultiLineString();
+         string.setText(name);
+         node.setName(string);
+         nodes.add(node);
+      }
    }
 
    private void operate(ClassNode a, ClassNode b, String op)
    {
       Edge edge;
-      if ("-".compareTo(op) == 0)
+      if ("-->".compareTo(op) == 0)
       {
          edge = (Edge) graph.getEdgePrototypes()[0].clone();
-         edge.connect(a, b);
          graph.connect(edge, a, b);
       }
+      if ("-|>".compareTo(op) == 0)
+      {
+         edge = (Edge) graph.getEdgePrototypes()[1].clone();
+         graph.connect(edge, a, b);
+      }
+      if ("--|>".compareTo(op) == 0)
+      {
+         edge = (Edge) graph.getEdgePrototypes()[2].clone();
+         graph.connect(edge, a, b);
+      }
+      if ("->".compareTo(op) == 0)
+      {
+         edge = (Edge) graph.getEdgePrototypes()[3].clone();
+         graph.connect(edge, a, b);
+      }
+      if ("<>-".compareTo(op) == 0)
+      {
+         edge = (Edge) graph.getEdgePrototypes()[4].clone();
+         graph.connect(edge, a, b);
+      }
+      if ("<.>-".compareTo(op) == 0)
+      {
+         edge = (Edge) graph.getEdgePrototypes()[5].clone();
+         graph.connect(edge, a, b);
+      }
+      if ("--".compareTo(op) == 0)
+      {
+         edge = (Edge) graph.getEdgePrototypes()[6].clone();
+         graph.connect(edge, a, b);
+      }
+
    }
 
    private ClassNode find(String name)
@@ -115,7 +182,6 @@ public class ClassDiagramReader
       {
          if (node.getName().getText().equals(name))
          {
-            System.out.println(name);
             return node;
          }
       }
