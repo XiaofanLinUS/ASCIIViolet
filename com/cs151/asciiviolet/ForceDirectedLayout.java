@@ -6,8 +6,26 @@ import java.util.HashMap;
 import com.horstmann.violet.framework.Edge;
 import com.horstmann.violet.framework.Node;
 
+/**
+ * A forced directed layout algorithm that ensures nodes are apart from each
+ * other
+ * 
+ * @author linxiaofan
+ *
+ */
 public class ForceDirectedLayout implements LayoutPlanner
 {
+   /**
+    * Construct ForceDirectedLyout with a given length of the edges, nodes,
+    * edges
+    * 
+    * @param length
+    *           the given length
+    * @param thatNodes
+    *           the given nodes
+    * @param thatEdges
+    *           the given edges
+    */
    public ForceDirectedLayout(double length, ArrayList<Node> thatNodes, ArrayList<Edge> thatEdges)
    {
       l = length;
@@ -18,6 +36,7 @@ public class ForceDirectedLayout implements LayoutPlanner
       initialize();
    }
 
+   @Override
    public void refresh()
    {
       done = false;

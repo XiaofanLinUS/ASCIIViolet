@@ -6,12 +6,22 @@ import java.util.Scanner;
 
 import com.horstmann.violet.ClassDiagramGraph;
 import com.horstmann.violet.ClassNode;
-import com.horstmann.violet.framework.Edge;
-import com.horstmann.violet.framework.MultiLineString;;
 
+/**
+ * A command reader that reads a string and execute it
+ * 
+ * @author linxiaofan, benny3946
+ *
+ */
 public class ClassDiagramReader
 {
 
+   /**
+    * Construct a ClassDiagramReader with a given graph
+    * 
+    * @param aGraph
+    *           the given graph
+    */
    public ClassDiagramReader(ClassDiagramGraph aGraph)
    {
 
@@ -19,6 +29,12 @@ public class ClassDiagramReader
       nodes = (ArrayList<ClassNode>) graph.getNodes();
    }
 
+   /**
+    * Read the input and execute it
+    * 
+    * @param input
+    *           the given input
+    */
    public void read(String input)
    {
       Scanner s = new Scanner(input);
@@ -61,11 +77,11 @@ public class ClassDiagramReader
                nameB += command.charAt(count);
                count++;
             }
-            //for the case of two nodes.
+            // for the case of two nodes.
             if (nameA != "" && nameB != "")
                connect(nameA, nameB, operator);
-            //for the case of only one node.   
-            else if (nameA != "" && nameB =="")
+            // for the case of only one node.
+            else if (nameA != "" && nameB == "")
                createClassNode(nameA);
          } // end while
       } // end while
@@ -102,6 +118,7 @@ public class ClassDiagramReader
 
       operate(nodeA, nodeB, op);
    }
+
    private void createClassNode(String name)
    {
       ClassNode node = find(name);
@@ -154,7 +171,7 @@ public class ClassDiagramReader
          edge = (Edge) graph.getEdgePrototypes()[6].clone();
          graph.connect(edge, a, b);
       }
-      
+
    }
 
    private ClassNode find(String name)
