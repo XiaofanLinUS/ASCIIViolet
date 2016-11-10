@@ -34,12 +34,7 @@ import com.horstmann.violet.framework.VersionChecker;
  */
 public class UMLEditor extends JApplet
 {
-   /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-public static void main(String[] args)
+   public static void main(String[] args)
    {
       VersionChecker checker = new VersionChecker();
       checker.check(JAVA_VERSION);

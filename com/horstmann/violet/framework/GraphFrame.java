@@ -30,9 +30,7 @@ import java.util.ResourceBundle;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import com.cs151.asciiviolet.*;
-import com.horstmann.violet.*;
-import java.awt.geom.Point2D;
+
 
 /**
    A frame for showing a graphical editor
@@ -47,10 +45,9 @@ public class GraphFrame extends JInternalFrame
    {
       graph = aGraph;
       toolBar = new ToolBar(graph);
-      TextBar toolBar1 = new TextBar();//add textbar
-      panel = new GraphPanel(toolBar); //toolbar    
+      panel = new GraphPanel(toolBar);
       Container contentPane = getContentPane();
-      contentPane.add(toolBar1, BorderLayout.NORTH); //toolBar
+      contentPane.add(toolBar, BorderLayout.NORTH);
       contentPane.add(new JScrollPane(panel), BorderLayout.CENTER);
       // add listener to confirm frame closing
       addVetoableChangeListener(new
