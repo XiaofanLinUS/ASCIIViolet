@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 import com.horstmann.violet.ClassDiagramGraph;
 import com.horstmann.violet.ClassNode;
+import com.horstmann.violet.framework.Edge;
+import com.horstmann.violet.framework.MultiLineString;
 
 /**
  * A command reader that reads a string and execute it
