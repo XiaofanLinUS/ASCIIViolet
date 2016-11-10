@@ -27,7 +27,7 @@ public class TextBar extends JPanel
       setLayout(new BorderLayout());
       userInput = "";
       textfield = new JTextArea();
-      textfield.setPreferredSize(new Dimension(200, 200));
+      textfield.setPreferredSize(new Dimension(200, 100));
       button = new JButton("draw");
 
       button.addActionListener((e) -> {
@@ -42,4 +42,6 @@ public class TextBar extends JPanel
    {
       userInput = textfield.getText();
    }
+   
+   private String getUserInput(){ return userInput;}
 }
