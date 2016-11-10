@@ -61,9 +61,12 @@ public class ClassDiagramReader
                nameB += comand.charAt(count);
                count++;
             }
-
+            //for the case of two nodes.
             if (nameA != "" && nameB != "")
                connect(nameA, nameB, operator);
+            //for the case of only one node.   
+            else if (nameA != "" && nameB =="")
+               createClassNode(nameA);
          } // end while
       } // end while
 
@@ -97,6 +100,19 @@ public class ClassDiagramReader
       operate(nodeA, nodeB, op);
 
    }
+   private void createClassNode(String name)
+   {
+      ClassNode node = find(name);
+
+      if (node == null)
+      {
+         node = new ClassNode();
+         MultiLineString string = new MultiLineString();
+         string.setText(name);
+         node.setName(string);
+         nodes.add(node);
+      }
+   }
 
    private void operate(ClassNode a, ClassNode b, String op)
    {
@@ -107,6 +123,7 @@ public class ClassDiagramReader
          edge.connect(a, b);
          graph.connect(edge, a, b);
       }
+      
    }
 
    private ClassNode find(String name)
