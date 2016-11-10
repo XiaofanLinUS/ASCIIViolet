@@ -22,43 +22,43 @@ public class ClassDiagramReader
    public void read(String input)
    {
       Scanner s = new Scanner(input);
-      String comand = "";
+      String command = "";
 
       while (s.hasNext())
       {
-         comand = s.nextLine();
+         command = s.nextLine();
          int count = 0;
 
-         while (count < comand.length())
+         while (count < command.length())
          {
             // find nodeA
-            while (count < comand.length() && comand.charAt(count) != '[')
+            while (count < command.length() && command.charAt(count) != '[')
             {
                count++;
             }
             String nameA = "";
             count++;
 
-            while (count < comand.length() && comand.charAt(count) != ']')
+            while (count < command.length() && command.charAt(count) != ']')
             {
-               nameA += comand.charAt(count);
+               nameA += command.charAt(count);
                count++;
             }
             // find operator
             String operator = "";
             count++;
-            while (count < comand.length() && comand.charAt(count) != '[')
+            while (count < command.length() && command.charAt(count) != '[')
             {
-               operator += comand.charAt(count);
+               operator += command.charAt(count);
                count++;
             }
             // find nodeB
             String nameB = "";
             count++;
 
-            while (count < comand.length() && comand.charAt(count) != ']')
+            while (count < command.length() && command.charAt(count) != ']')
             {
-               nameB += comand.charAt(count);
+               nameB += command.charAt(count);
                count++;
             }
             //for the case of two nodes.
