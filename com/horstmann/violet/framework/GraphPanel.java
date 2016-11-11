@@ -318,11 +318,8 @@ public class GraphPanel extends JPanel
    public void setGraph(Graph aGraph)
    {
       graph = aGraph;
-      setModified(false);
-
+      setModified(true);
       ClassDiagramReader reader = new ClassDiagramReader((ClassDiagramGraph) graph);
-      String anInput = "[a]-->[b][b]--<>[c][c]-|>[a]";
-      reader.read(anInput);
 
       revalidate();
       repaint();

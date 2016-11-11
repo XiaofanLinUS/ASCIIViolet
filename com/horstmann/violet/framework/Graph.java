@@ -387,6 +387,7 @@ public abstract class Graph implements Serializable
       edges.add(e);
    }
 
+
    private ArrayList nodes;
    private ArrayList edges;
    private transient ArrayList nodesToBeRemoved;
