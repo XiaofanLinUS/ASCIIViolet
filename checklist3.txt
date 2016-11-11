@@ -1,0 +1,22 @@
+Week 3
+
+Functional specification (what the project will do) is complete: No
+
+Multiplicities in class diagrams?
+Sequence diagram notation
+
+There is some design documentation (key classes, mechanisms, protocols): Ok
+
+There are sufficient issues to keep each team member busy for week 4: No
+
+With 4 team members and an issue taking ≤ 3 days, there should be at least 8 issues in the pipeline.
+
+Each team member has closed at least two issues and has put the closed issue number(s) in their report: Partial
+
+What's with Hing Lum and Gideon? Any issues closed? Why so few hours?
+
+The project builds and does something useful. Put instructions for building and for trying out that useful feature on the wiki: Ok
+
+For completeness, put build and run instructions, even though they are simple.
+
+
