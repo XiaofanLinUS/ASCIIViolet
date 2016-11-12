@@ -5,16 +5,14 @@ import java.awt.Dimension;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
 
 import com.horstmann.violet.ClassDiagramGraph;
 import com.horstmann.violet.framework.GraphPanel;
 
 /**
  * A TextBar that receives string
- * @version 11/11/2016
+ * @version 11/10/2016
  *
  */
 public class TextBar extends JPanel
@@ -35,16 +33,15 @@ public class TextBar extends JPanel
       setLayout(new BorderLayout());
       graph = aGraph;
       userInput = "";
-      textfield = new JTextArea(5,100); //5 row
-      JScrollPane scrollableTextfield = new JScrollPane(textfield);
-      scrollableTextfield.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+      textfield = new JTextArea();
+      textfield.setPreferredSize(new Dimension(200, 100));
       button = new JButton("draw");
 
       button.addActionListener((e) -> {
          executeCommand();
       });
 
-      add(scrollableTextfield, BorderLayout.SOUTH);
+      add(textfield, BorderLayout.SOUTH);
       add(button, BorderLayout.NORTH);
    }
 
