@@ -2,14 +2,15 @@ package com.cs151.asciiviolet;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
-import com.horstmann.violet.ClassDiagramGraph;
 import com.horstmann.violet.ClassNode;
 import com.horstmann.violet.ClassRelationshipEdge;
 import com.horstmann.violet.NoteEdge;
-import com.horstmann.violet.framework.Edge;
+import com.horstmann.violet.framework.Graph;
 import com.horstmann.violet.framework.MultiLineString;
+import com.horstmann.violet.framework.Node;
 
 /**
  * A command reader that reads a string and execute it
@@ -18,7 +19,7 @@ import com.horstmann.violet.framework.MultiLineString;
  * @version 11/11/16
  *
  */
-public class ClassDiagramReader
+public class ClassDiagramReader implements Reader
 {
 
    /**
@@ -27,11 +28,11 @@ public class ClassDiagramReader
     * @param aGraph
     *           the given graph
     */
-   public ClassDiagramReader(ClassDiagramGraph aGraph)
+   public ClassDiagramReader(Graph aGraph)
    {
-
+      classNodes = new HashMap<>();
       graph = aGraph;
-      nodes = (ArrayList<ClassNode>) graph.getNodes();
+      nodes = (ArrayList<Node>) graph.getNodes();
    }
 
    /**
@@ -95,15 +96,17 @@ public class ClassDiagramReader
 
    private void connect(String a, String b, String op)
    {
-      ClassNode nodeA = find(a);
-      ClassNode nodeB = find(b);
+      Node nodeA = find(a);
+      Node nodeB = find(b);
 
       if (nodeA == null)
       {
-         nodeA = new ClassNode();
+         ClassNode node1 = new ClassNode();
          MultiLineString string1 = new MultiLineString();
          string1.setText(a);
-         nodeA.setName(string1);
+         node1.setName(string1);
+         nodeA = node1;
+         classNodes.put(a, nodeA);
          while (!graph.add(nodeA, new Point2D.Double(80 * Math.random(), 80 * Math.random())))
          {
          }
@@ -112,192 +115,180 @@ public class ClassDiagramReader
 
       if (nodeB == null)
       {
-         nodeB = new ClassNode();
+         ClassNode node2 = new ClassNode();
          MultiLineString string2 = new MultiLineString();
          string2.setText(b);
-         nodeB.setName(string2);
+         node2.setName(string2);
+         nodeB = node2;
+         classNodes.put(b, nodeB);
          while (!graph.add(nodeB, new Point2D.Double(80 * Math.random(), 80 * Math.random())))
          {
          }
       }
-      
+
       operate(nodeA, nodeB, op);
    }
 
    private void createClassNode(String name)
    {
-      ClassNode node = find(name);
-
-      if (node == null)
+      if (find(name) == null)
       {
-         node = new ClassNode();
+         ClassNode node = new ClassNode();
          MultiLineString string = new MultiLineString();
          string.setText(name);
          node.setName(string);
          nodes.add(node);
+         classNodes.put(name, node);
       }
    }
 
-   private void operate(ClassNode a, ClassNode b, String op)
+   private void operate(Node a, Node b, String op)
    {
-	  ClassRelationshipEdge edge;
+      ClassRelationshipEdge edge;
       char[] ope = op.toCharArray();
       int endInd = ope.length - 1;
-      
-      if (ope[0] == '-' 
-    		  &&  ope[endInd -1] == '-' && ope[endInd] == '>' && ope.length >=3)// -->
+
+      if (ope[0] == '-' && ope[endInd - 1] == '-' && ope[endInd] == '>' && ope.length >= 3)// -->
       {
          edge = (ClassRelationshipEdge) graph.getEdgePrototypes()[0].clone();
-         if (ope.length> 4)
-        	 setLabel(edge,ope,1,2);
+         if (ope.length > 4)
+            setLabel(edge, ope, 1, 2);
          graph.connect(edge, a, b);
-      }
-      else if (ope[0] == '-' && ope[1] !='-' //to check if it is not --|>
-  		  	&&  ope[endInd -1] == '|' && ope[endInd] == '>' && ope.length >=3)//-|>
+      } else if (ope[0] == '-' && ope[1] != '-' // to check if it is not --|>
+            && ope[endInd - 1] == '|' && ope[endInd] == '>' && ope.length >= 3)// -|>
       {
-       edge = (ClassRelationshipEdge) graph.getEdgePrototypes()[1].clone();
-       if (ope.length> 4)
-      	 setLabel(edge,ope,1,2);
-       graph.connect(edge, a, b);
-      }
-      else if (ope[0] == '-' &&  ope[1] == '-'
-    		  &&  ope[endInd -1] == '|' && ope[endInd] == '>' && ope.length >=4)//--|>
+         edge = (ClassRelationshipEdge) graph.getEdgePrototypes()[1].clone();
+         if (ope.length > 4)
+            setLabel(edge, ope, 1, 2);
+         graph.connect(edge, a, b);
+      } else if (ope[0] == '-' && ope[1] == '-' && ope[endInd - 1] == '|' && ope[endInd] == '>' && ope.length >= 4)// --|>
       {
          edge = (ClassRelationshipEdge) graph.getEdgePrototypes()[2].clone();
-         if (ope.length> 5)
-        	 setLabel(edge,ope,2,2);
+         if (ope.length > 5)
+            setLabel(edge, ope, 2, 2);
          graph.connect(edge, a, b);
-      }
-      else if (ope[0] == '-'
-  		  		&& ope[endInd] == '>' && ope.length >=2)//->
+      } else if (ope[0] == '-' && ope[endInd] == '>' && ope.length >= 2)// ->
       {
-    	 edge = (ClassRelationshipEdge) graph.getEdgePrototypes()[3].clone();
-         if (ope.length> 3)
-        	 setLabel(edge,ope,1,1);
+         edge = (ClassRelationshipEdge) graph.getEdgePrototypes()[3].clone();
+         if (ope.length > 3)
+            setLabel(edge, ope, 1, 1);
          graph.connect(edge, a, b);
-      }
-      else if (ope[0] == '<' &&  ope[1] == '>' 
-    		  	&& ope[endInd] == '-' && ope.length >=3)//<>-
+      } else if (ope[0] == '<' && ope[1] == '>' && ope[endInd] == '-' && ope.length >= 3)// <>-
       {
          edge = (ClassRelationshipEdge) graph.getEdgePrototypes()[4].clone();
-         if (ope.length> 4)
-        	 setLabel(edge,ope,2,1);
+         if (ope.length > 4)
+            setLabel(edge, ope, 2, 1);
          graph.connect(edge, a, b);
-      }
-      else if (ope[0] == '<' &&  ope[1] == '.' && ope[2] == '>' 
-    		  	&& ope[endInd] == '-' && ope.length >=4)//<.>-
+      } else if (ope[0] == '<' && ope[1] == '.' && ope[2] == '>' && ope[endInd] == '-' && ope.length >= 4)// <.>-
       {
          edge = (ClassRelationshipEdge) graph.getEdgePrototypes()[5].clone();
-         if (ope.length> 5)
-        	 setLabel(edge,ope,3,1);
+         if (ope.length > 5)
+            setLabel(edge, ope, 3, 1);
          graph.connect(edge, a, b);
       }
-      if (ope[0] == '-'
-		  		&& ope[endInd] == '-' && ope.length >=2)//--
+      if (ope[0] == '-' && ope[endInd] == '-' && ope.length >= 2)// --
       {
          NoteEdge nEdge = (NoteEdge) graph.getEdgePrototypes()[6].clone();
          graph.connect(nEdge, a, b);
       }
    }
+
    /**
-    * set the label on the edge by reading the string in operater(ope)
-    * using '+' sign as an seperater to seperate the label
-    * if there is 1 label (a) a would be the middleLabel.
-    * if there is 2 labels (a+b) a would be the startLabel and b would be the endLabel.
-    * if there is 3 labels (a+b+c) a would be the startLabel, b would be the middle label 
-    * and,c would be the endLabel
-    *   
-    * @param edge the edge for the setting.
-    * @param ope the operater
-    * @param start the number of charactor should omit from the start 
-    * @param end the number of charactor should omit at the end 
+    * set the label on the edge by reading the string in operater(ope) using '+'
+    * sign as an seperater to seperate the label if there is 1 label (a) a would
+    * be the middleLabel. if there is 2 labels (a+b) a would be the startLabel
+    * and b would be the endLabel. if there is 3 labels (a+b+c) a would be the
+    * startLabel, b would be the middle label and,c would be the endLabel
+    * 
+    * @param edge
+    *           the edge for the setting.
+    * @param ope
+    *           the operater
+    * @param start
+    *           the number of charactor should omit from the start
+    * @param end
+    *           the number of charactor should omit at the end
     */
-   private void setLabel(ClassRelationshipEdge edge, char[] ope,int start,int end)
+   private void setLabel(ClassRelationshipEdge edge, char[] ope, int start, int end)
    {
-	String startLabel = "";
-	String midLabel = "";
-	String endLabel = "";
-	
-	//counting the number of labels
-	int label = 0; 
-	for (int i = start; i < ope.length - end;i++)
-		if (ope[i] == '+' && ope[i-1] != '\\')
-				label++;
-	
-	if(label == 0) //if only 1 label, set up the middle label
-	{
-		for (int i = start; i < ope.length - end;i++)
-		{
-			if(ope[i] == '\\' && i+1 < ope.length && ope[i+1] == '+')
-				i++;
-			midLabel += ope[i];
-		}
-	}
-	else if (label == 1) //if there is 2 labels, set up the start and the end label
-	{
-		int i = start; 
-		while(ope[i] != '+' || ope[i-1] =='\\')
-		{
-			if(ope[i] == '\\' && i+1 < ope.length && ope[i+1] == '+')
-				i++;
-			startLabel += ope[i];
-			i++;
-		}
-		i++;
-		while(i < ope.length - end)
-		{
-			if(ope[i] == '\\' && i+1 < ope.length && ope[i+1] == '+')
-				i++;
-			endLabel += ope[i];
-			i++;
-		}
-	}
-	else if(label ==2) // if there is 3 labels, set the label acordinly
-	{
-		int i = start; 
-		while(ope[i] != '+' || ope[i-1] =='\\')
-		{
-			if(ope[i] == '\\' && i+1 < ope.length && ope[i+1] == '+')
-				i++;
-			startLabel += ope[i];
-			i++;
-		}
-		i++;
-		while(ope[i] != '+' || ope[i-1] =='\\')
-		{
-			//increment the i if a '\' following with a '+'.
-			if(ope[i] == '\\' && i+1 < ope.length && ope[i+1] == '+')
-				i++;
-			midLabel += ope[i];
-			i++;
-		}
-		i++;
-		while(i < ope.length - end)
-		{
-			if(ope[i] == '\\' && i+1 < ope.length && ope[i+1] == '+')
-				i++;
-			endLabel += ope[i];
-			i++;
-		}
-	}
-	edge.setStartLabel(startLabel);
-	edge.setMiddleLabel(midLabel);
-	edge.setEndLabel(endLabel);
-   }
-   
-   private ClassNode find(String name)
-   {
-      for (ClassNode node : nodes)
+      String startLabel = "";
+      String midLabel = "";
+      String endLabel = "";
+
+      // counting the number of labels
+      int label = 0;
+      for (int i = start; i < ope.length - end; i++)
+         if (ope[i] == '+' && ope[i - 1] != '\\')
+            label++;
+
+      if (label == 0) // if only 1 label, set up the middle label
       {
-         if (node.getName().getText().equals(name))
+         for (int i = start; i < ope.length - end; i++)
          {
-            return node;
+            if (ope[i] == '\\' && i + 1 < ope.length && ope[i + 1] == '+')
+               i++;
+            midLabel += ope[i];
+         }
+      } else if (label == 1) // if there is 2 labels, set up the start and the
+                             // end label
+      {
+         int i = start;
+         while (ope[i] != '+' || ope[i - 1] == '\\')
+         {
+            if (ope[i] == '\\' && i + 1 < ope.length && ope[i + 1] == '+')
+               i++;
+            startLabel += ope[i];
+            i++;
+         }
+         i++;
+         while (i < ope.length - end)
+         {
+            if (ope[i] == '\\' && i + 1 < ope.length && ope[i + 1] == '+')
+               i++;
+            endLabel += ope[i];
+            i++;
+         }
+      } else if (label == 2) // if there is 3 labels, set the label acordinly
+      {
+         int i = start;
+         while (ope[i] != '+' || ope[i - 1] == '\\')
+         {
+            if (ope[i] == '\\' && i + 1 < ope.length && ope[i + 1] == '+')
+               i++;
+            startLabel += ope[i];
+            i++;
+         }
+         i++;
+         while (ope[i] != '+' || ope[i - 1] == '\\')
+         {
+            // increment the i if a '\' following with a '+'.
+            if (ope[i] == '\\' && i + 1 < ope.length && ope[i + 1] == '+')
+               i++;
+            midLabel += ope[i];
+            i++;
+         }
+         i++;
+         while (i < ope.length - end)
+         {
+            if (ope[i] == '\\' && i + 1 < ope.length && ope[i + 1] == '+')
+               i++;
+            endLabel += ope[i];
+            i++;
          }
       }
-      return null;
+      edge.setStartLabel(startLabel);
+      edge.setMiddleLabel(midLabel);
+      edge.setEndLabel(endLabel);
    }
 
-   private ArrayList<ClassNode> nodes;
-   private ClassDiagramGraph graph;
+   private Node find(String name)
+   {
+
+      return classNodes.get(name);
+   }
+
+   private ArrayList<Node> nodes;
+   private Graph graph;
+   private HashMap<String, Node> classNodes;
 
 }

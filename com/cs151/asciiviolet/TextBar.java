@@ -1,7 +1,6 @@
 package com.cs151.asciiviolet;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -9,11 +8,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
-import com.horstmann.violet.ClassDiagramGraph;
+import com.horstmann.violet.framework.Graph;
 import com.horstmann.violet.framework.GraphPanel;
 
 /**
  * A TextBar that receives string
+ * 
  * @version 11/11/2016
  *
  */
@@ -22,20 +22,21 @@ public class TextBar extends JPanel
    private String userInput;
    private JTextArea textfield;
    private JButton button;
-   private ClassDiagramGraph graph;
+   private Graph graph;
    private GraphPanel panel;
    private ClassDiagramReader reader;
+
    /**
     * Construct a TextBar
     */
-   public TextBar(ClassDiagramGraph aGraph, GraphPanel aPanel)
+   public TextBar(Graph aGraph, GraphPanel aPanel)
    {
-	  reader = new ClassDiagramReader(aGraph);
-	  panel = aPanel;
+      reader = new ClassDiagramReader(aGraph);
+      panel = aPanel;
       setLayout(new BorderLayout());
       graph = aGraph;
       userInput = "";
-      textfield = new JTextArea(5,100); //5 row
+      textfield = new JTextArea(5, 100); // 5 row
       JScrollPane scrollableTextfield = new JScrollPane(textfield);
       scrollableTextfield.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
       button = new JButton("draw");
@@ -48,7 +49,7 @@ public class TextBar extends JPanel
       add(button, BorderLayout.NORTH);
    }
 
-private void executeCommand()
+   private void executeCommand()
    {
       userInput = textfield.getText();
       reader.read(userInput);
@@ -56,6 +57,9 @@ private void executeCommand()
       panel.repaint();
 
    }
-   
-   public String getUserInput(){ return userInput;}
+
+   public String getUserInput()
+   {
+      return userInput;
+   }
 }
