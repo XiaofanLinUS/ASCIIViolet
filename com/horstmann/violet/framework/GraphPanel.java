@@ -45,9 +45,6 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.cs151.asciiviolet.ClassDiagramReader;
-import com.horstmann.violet.ClassDiagramGraph;
-
 /**
  * A panel to draw a graph
  */
@@ -319,7 +316,6 @@ public class GraphPanel extends JPanel
    {
       graph = aGraph;
       setModified(true);
-      ClassDiagramReader reader = new ClassDiagramReader((ClassDiagramGraph) graph);
 
       revalidate();
       repaint();
