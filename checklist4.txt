@@ -1,0 +1,24 @@
+Design documentation lists all planned classes: Ok
+
+There are sufficient issues to keep each team member busy: No
+
+Good number of issues closed, but there are only 4 open issues.
+
+The project builds and does something significant: No
+
+/home/cay/Dropbox/cs151/projects/ASCIIViolet/com/cs151/asciiviolet/ClassDiagramReader.java:22: error: interface expected here
+No build instructions
+No status page
+
+
+Every team member has multiple commits throughout the week: No!!!
+
+Only Xiaofan commited recently, and only once.
+
+Who is benny3946?
+
+Individual reports: No
+
+No report from Hing Lum 
+
+
