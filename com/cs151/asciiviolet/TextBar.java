@@ -29,7 +29,12 @@ public class TextBar extends JPanel
    private Font font;
 
    /**
-    * Construct a TextBar
+    * Construct a TextBar with a given graph and graph panel
+    * 
+    * @param aGraph
+    *           the given graph
+    * @param aPanel
+    *           the iven graph panel
     */
    public TextBar(Graph aGraph, GraphPanel aPanel)
    {
@@ -61,7 +66,7 @@ public class TextBar extends JPanel
 
    }
 
-   public String getUserInput()
+   private String getUserInput()
    {
       return userInput;
    }

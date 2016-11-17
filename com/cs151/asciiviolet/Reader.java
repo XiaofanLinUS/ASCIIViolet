@@ -15,7 +15,7 @@ public interface Reader
    /**
     * Read the input and execute it
     * 
-    * @param input
+    * @param command
     *           the given input
     */
    void read(String command);
