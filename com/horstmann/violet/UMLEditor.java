@@ -80,9 +80,9 @@ public static void main(String[] args)
       EditorFrame frame = new EditorFrame(UMLEditor.class);
       frame.addGraphType("class_diagram", ClassDiagramGraph.class);
       frame.addGraphType("sequence_diagram", SequenceDiagramGraph.class);
-      frame.addGraphType("state_diagram", StateDiagramGraph.class);
-      frame.addGraphType("object_diagram", ObjectDiagramGraph.class);
-      frame.addGraphType("usecase_diagram", UseCaseDiagramGraph.class);
+      //frame.addGraphType("state_diagram", StateDiagramGraph.class);
+      //frame.addGraphType("object_diagram", ObjectDiagramGraph.class);
+      //frame.addGraphType("usecase_diagram", UseCaseDiagramGraph.class);
       return frame;
    }
    

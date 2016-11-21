@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import com.cs151.asciiviolet.SequenceDiagramReader;
 import com.horstmann.violet.framework.Edge;
 import com.horstmann.violet.framework.Graph;
 import com.horstmann.violet.framework.Grid;

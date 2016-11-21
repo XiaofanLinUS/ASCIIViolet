@@ -1,6 +1,7 @@
 package com.cs151.asciiviolet;
 
 import com.horstmann.violet.ClassDiagramGraph;
+import com.horstmann.violet.SequenceDiagramGraph;
 import com.horstmann.violet.framework.Graph;
 
 /**
@@ -29,11 +30,17 @@ public interface Reader
     */
    static Reader get(Graph graph)
    {
-      if (graph.getClass().equals(ClassDiagramGraph.class))
+      Reader reader = null;
+	   if (graph.getClass().equals(ClassDiagramGraph.class))
       {
-         return new ClassDiagramReader(graph);
+        reader =  new ClassDiagramReader(graph);
       }
-      return new ClassDiagramReader(graph);
+      else if(graph.getClass().equals(SequenceDiagramGraph.class))
+      {
+    	reader = new SequenceDiagramReader(graph);
+      }
+    	  return reader;
+     
    }
 
 }
