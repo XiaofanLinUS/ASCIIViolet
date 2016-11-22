@@ -27,17 +27,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import com.cs151.asciiviolet.SequenceDiagramReader;
+import com.cs151.asciiviolet.SmartGraph;
 import com.horstmann.violet.framework.Edge;
-import com.horstmann.violet.framework.Graph;
 import com.horstmann.violet.framework.Grid;
 import com.horstmann.violet.framework.Node;
 
-
 /**
-   A UML sequence diagram.
-*/
-public class SequenceDiagramGraph extends Graph
+ * A UML sequence diagram.
+ */
+public class SequenceDiagramGraph extends SmartGraph
 {
    public boolean add(Node n, Point2D p)
    {
@@ -48,19 +46,19 @@ public class SequenceDiagramGraph extends Graph
          Iterator iter = nodes.iterator();
          while (!inside && iter.hasNext())
          {
-            Node n2 = (Node)iter.next();
-            if (n2 instanceof ImplicitParameterNode
-               && n2.contains(p)) 
+            Node n2 = (Node) iter.next();
+            if (n2 instanceof ImplicitParameterNode && n2.contains(p))
             {
                inside = true;
-               ((CallNode)n).setImplicitParameter(
-                  (ImplicitParameterNode)(n2));
+               ((CallNode) n).setImplicitParameter((ImplicitParameterNode) (n2));
             }
          }
-         if (!inside) return false;
+         if (!inside)
+            return false;
       }
 
-      if (!super.add(n, p)) return false;
+      if (!super.add(n, p))
+         return false;
 
       return true;
    }
@@ -71,7 +69,7 @@ public class SequenceDiagramGraph extends Graph
       if (e instanceof CallEdge && e.getEnd().getChildren().size() == 0)
          removeNode(e.getEnd());
    }
- 
+
    public void layout(Graphics2D g2, Grid grid)
    {
       super.layout(g2, grid);
@@ -82,24 +80,24 @@ public class SequenceDiagramGraph extends Graph
       Iterator iter = nodes.iterator();
       while (iter.hasNext())
       {
-         Node n = (Node)iter.next();
-         
-         if (n instanceof CallNode && n.getParent() == null) 
+         Node n = (Node) iter.next();
+
+         if (n instanceof CallNode && n.getParent() == null)
             topLevelCalls.add(n);
          else if (n instanceof ImplicitParameterNode)
-            objects.add(n);      
+            objects.add(n);
       }
 
       Collection edges = getEdges();
       iter = edges.iterator();
       while (iter.hasNext())
       {
-         Edge e = (Edge)iter.next();
+         Edge e = (Edge) iter.next();
          if (e instanceof CallEdge)
          {
             Node end = e.getEnd();
             if (end instanceof CallNode)
-               ((CallNode)end).setSignaled(((CallEdge)e).isSignal());
+               ((CallNode) end).setSignaled(((CallEdge) e).isSignal());
          }
       }
 
@@ -110,39 +108,25 @@ public class SequenceDiagramGraph extends Graph
       double top = 0;
       for (int i = 0; i < objects.size(); i++)
       {
-         ImplicitParameterNode n = (ImplicitParameterNode)objects.get(i);
+         ImplicitParameterNode n = (ImplicitParameterNode) objects.get(i);
          n.translate(0, -n.getBounds().getY());
          top = Math.max(top, n.getTopRectangle().getHeight());
       }
 
       /*
-
-      // sort topLevelCalls by y position
-      Collections.sort(topLevelCalls, new
-         Comparator()
-         {
-            public int compare(Object o1, Object o2)
-            {
-               CallNode c1 = (CallNode)o1;
-               CallNode c2 = (CallNode)o2;
-               double diff = c1.getBounds().getY()
-                  - c2.getBounds().getY();
-               if (diff < 0) return -1;
-               if (diff > 0) return 1;
-               return 0;
-            }            
-         });
-
-      for (int i = 0; i < topLevelCalls.size(); i++)
-      {
-         CallNode call = (CallNode)topLevelCalls.get(i);
-         top += CallNode.CALL_YGAP;
-
-         call.translate(0, top - call.getBounds().getY());
-         call.layout(this, g2, grid);
-         top += call.getBounds().getHeight();
-      }
-      */
+       * 
+       * // sort topLevelCalls by y position Collections.sort(topLevelCalls, new
+       * Comparator() { public int compare(Object o1, Object o2) { CallNode c1 =
+       * (CallNode)o1; CallNode c2 = (CallNode)o2; double diff =
+       * c1.getBounds().getY() - c2.getBounds().getY(); if (diff < 0) return -1;
+       * if (diff > 0) return 1; return 0; } });
+       * 
+       * for (int i = 0; i < topLevelCalls.size(); i++) { CallNode call =
+       * (CallNode)topLevelCalls.get(i); top += CallNode.CALL_YGAP;
+       * 
+       * call.translate(0, top - call.getBounds().getY()); call.layout(this, g2,
+       * grid); top += call.getBounds().getHeight(); }
+       */
 
       for (int i = 0; i < topLevelCalls.size(); i++)
       {
@@ -153,10 +137,9 @@ public class SequenceDiagramGraph extends Graph
       iter = nodes.iterator();
       while (iter.hasNext())
       {
-         Node n = (Node)iter.next();
+         Node n = (Node) iter.next();
          if (n instanceof CallNode)
-            top = Math.max(top, n.getBounds().getY()
-               + n.getBounds().getHeight());
+            top = Math.max(top, n.getBounds().getY() + n.getBounds().getHeight());
       }
 
       top += CallNode.CALL_YGAP;
@@ -165,9 +148,7 @@ public class SequenceDiagramGraph extends Graph
       {
          ImplicitParameterNode n = (ImplicitParameterNode) objects.get(i);
          Rectangle2D b = n.getBounds();
-         n.setBounds(new Rectangle2D.Double(
-            b.getX(), b.getY(), 
-            b.getWidth(), top - b.getY()));         
+         n.setBounds(new Rectangle2D.Double(b.getX(), b.getY(), b.getWidth(), top - b.getY()));
       }
    }
 
@@ -225,8 +206,3 @@ public class SequenceDiagramGraph extends Graph
       EDGE_PROTOTYPES[2] = new NoteEdge();
    }
 }
-
-
-
-
-

@@ -1,7 +1,6 @@
 package com.cs151.asciiviolet;
 
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 
 import com.horstmann.violet.framework.Edge;
 import com.horstmann.violet.framework.Graph;
@@ -22,7 +21,7 @@ public abstract class SmartGraph extends Graph
    public SmartGraph()
    {
       super();
-      plan = LayoutPlanner.defaultPlan((ArrayList<Node>) super.getNodes(), (ArrayList<Edge>) super.getEdges());
+      plan = LayoutPlanner.getPlan(this);
       // Milliseconds between timer ticks
    }
 

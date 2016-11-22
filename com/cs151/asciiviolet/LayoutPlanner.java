@@ -2,7 +2,10 @@ package com.cs151.asciiviolet;
 
 import java.util.ArrayList;
 
+import com.horstmann.violet.ClassDiagramGraph;
+import com.horstmann.violet.SequenceDiagramGraph;
 import com.horstmann.violet.framework.Edge;
+import com.horstmann.violet.framework.Graph;
 import com.horstmann.violet.framework.Node;
 
 /**
@@ -26,6 +29,20 @@ public interface LayoutPlanner
    static LayoutPlanner defaultPlan(ArrayList<Node> nodes, ArrayList<Edge> edges)
    {
       return new ForceDirectedLayout(120, nodes, edges);
+   }
+
+   static LayoutPlanner getPlan(Graph graph)
+   {
+      if (graph.getClass().equals(ClassDiagramGraph.class))
+      {
+         return new ForceDirectedLayout(120, (ArrayList<Node>) graph.getNodes(), (ArrayList<Edge>) graph.getEdges());
+      } else if (graph.getClass().equals(SequenceDiagramGraph.class))
+      {
+         return new SequenceLayout(120, (ArrayList<Node>) graph.getNodes());
+      } else
+      {
+         return defaultPlan((ArrayList<Node>) graph.getNodes(), (ArrayList<Edge>) graph.getEdges());
+      }
    }
 
    /**
