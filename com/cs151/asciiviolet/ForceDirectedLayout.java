@@ -51,8 +51,6 @@ public class ForceDirectedLayout implements LayoutPlanner
    @Override
    public void refresh()
    {
-      nodes = (ArrayList<Node>) graph.getNodes();
-      edges = (ArrayList<Edge>) graph.getEdges();
       done = false;
       move();
    }

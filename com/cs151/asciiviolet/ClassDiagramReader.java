@@ -3,6 +3,7 @@ package com.cs151.asciiviolet;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
 
 import com.horstmann.violet.ClassNode;
@@ -46,7 +47,8 @@ public class ClassDiagramReader implements Reader
       Scanner s = new Scanner(input);
       String command = "";
 
-      graph.reset();
+      names = new HashSet<>();
+
       while (s.hasNext())
       {
          command = s.nextLine();
@@ -92,19 +94,36 @@ public class ClassDiagramReader implements Reader
                createClassNode(nameA);
          } // end while
       } // end while
-
+      for (Node node : nodes)
+      {
+         if (node.getClass().equals(ClassNode.class))
+         {
+            ClassNode classNode = (ClassNode) node;
+            if (!names.contains(classNode.getName()))
+            {
+               graph.removeNode(classNode);
+            }
+         }
+      }
    }
 
    private void connect(String a, String b, String op)
    {
+      MultiLineString string1 = new MultiLineString();
+      MultiLineString string2 = new MultiLineString();
+
       Node nodeA = find(a);
       Node nodeB = find(b);
+
+      string1.setText(a);
+      string2.setText(b);
+
+      names.add(string1);
+      names.add(string2);
 
       if (nodeA == null)
       {
          ClassNode node1 = new ClassNode();
-         MultiLineString string1 = new MultiLineString();
-         string1.setText(a);
          node1.setName(string1);
          nodeA = node1;
          classNodes.put(a, nodeA);
@@ -117,8 +136,6 @@ public class ClassDiagramReader implements Reader
       if (nodeB == null)
       {
          ClassNode node2 = new ClassNode();
-         MultiLineString string2 = new MultiLineString();
-         string2.setText(b);
          node2.setName(string2);
          nodeB = node2;
          classNodes.put(b, nodeB);
@@ -288,6 +305,7 @@ public class ClassDiagramReader implements Reader
       return classNodes.get(name);
    }
 
+   private HashSet<MultiLineString> names;
    private ArrayList<Node> nodes;
    private Graph graph;
    private HashMap<String, Node> classNodes;
