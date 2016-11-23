@@ -99,8 +99,9 @@ public class ClassDiagramReader implements Reader
          if (node.getClass().equals(ClassNode.class))
          {
             ClassNode classNode = (ClassNode) node;
-            if (!names.contains(classNode.getName()))
+            if (!names.contains(classNode.getName().getText()))
             {
+               System.out.println(classNode.getName().getText());
                graph.removeNode(classNode);
             }
          }
@@ -109,21 +110,17 @@ public class ClassDiagramReader implements Reader
 
    private void connect(String a, String b, String op)
    {
-      MultiLineString string1 = new MultiLineString();
-      MultiLineString string2 = new MultiLineString();
-
       Node nodeA = find(a);
       Node nodeB = find(b);
 
-      string1.setText(a);
-      string2.setText(b);
-
-      names.add(string1);
-      names.add(string2);
+      names.add(a);
+      names.add(b);
 
       if (nodeA == null)
       {
          ClassNode node1 = new ClassNode();
+         MultiLineString string1 = new MultiLineString();
+         string1.setText(a);
          node1.setName(string1);
          nodeA = node1;
          classNodes.put(a, nodeA);
@@ -136,6 +133,8 @@ public class ClassDiagramReader implements Reader
       if (nodeB == null)
       {
          ClassNode node2 = new ClassNode();
+         MultiLineString string2 = new MultiLineString();
+         string2.setText(b);
          node2.setName(string2);
          nodeB = node2;
          classNodes.put(b, nodeB);
@@ -305,7 +304,7 @@ public class ClassDiagramReader implements Reader
       return classNodes.get(name);
    }
 
-   private HashSet<MultiLineString> names;
+   private HashSet<String> names;
    private ArrayList<Node> nodes;
    private Graph graph;
    private HashMap<String, Node> classNodes;
