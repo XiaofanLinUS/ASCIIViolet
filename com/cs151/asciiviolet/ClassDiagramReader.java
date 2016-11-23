@@ -46,6 +46,7 @@ public class ClassDiagramReader implements Reader
       Scanner s = new Scanner(input);
       String command = "";
 
+      graph.reset();
       while (s.hasNext())
       {
          command = s.nextLine();

@@ -3,6 +3,7 @@ package com.cs151.asciiviolet;
 import java.util.ArrayList;
 
 import com.horstmann.violet.ImplicitParameterNode;
+import com.horstmann.violet.framework.Graph;
 import com.horstmann.violet.framework.Node;
 
 /**
@@ -21,6 +22,13 @@ public class SequenceLayout implements LayoutPlanner
       nodes = thatNodes;
    }
 
+   public SequenceLayout(double length, Graph agraph)
+   {
+      l = length;
+      graph = agraph;
+      nodes = (ArrayList<Node>) graph.getNodes();
+   }
+
    public void refresh()
    {
       for (int i = 0; i < nodes.size(); i++)
@@ -35,5 +43,7 @@ public class SequenceLayout implements LayoutPlanner
    }
 
    private double l;
+   private Graph graph;
    private ArrayList<Node> nodes;
+
 }
