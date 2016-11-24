@@ -37,6 +37,15 @@ public class ForceDirectedLayout implements LayoutPlanner
       initialize();
    }
 
+   /**
+    * Construct ForceDirectedLyout with a given length of the edges and a given
+    * graph
+    * 
+    * @param length
+    *           the given length
+    * @param aGraph
+    *           the given graph
+    */
    public ForceDirectedLayout(double length, Graph aGraph)
    {
       l = length;

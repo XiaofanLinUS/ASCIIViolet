@@ -31,6 +31,13 @@ public interface LayoutPlanner
       return new ForceDirectedLayout(120, nodes, edges);
    }
 
+   /**
+    * Get a plan corresponding to a given graph
+    * 
+    * @param graph
+    *           the given graph
+    * @return the plan
+    */
    static LayoutPlanner getPlan(Graph graph)
    {
       if (graph.getClass().equals(ClassDiagramGraph.class))

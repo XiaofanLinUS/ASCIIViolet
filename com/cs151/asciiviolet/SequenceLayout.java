@@ -16,12 +16,28 @@ import com.horstmann.violet.framework.Node;
 public class SequenceLayout implements LayoutPlanner
 {
 
+   /**
+    * Construct a SequenceLayout with a given length of the edges and nodes
+    * 
+    * @param length
+    *           the given length
+    * @param thatNodes
+    *           the given nodes
+    */
    public SequenceLayout(double length, ArrayList<Node> thatNodes)
    {
       l = length;
       nodes = thatNodes;
    }
 
+   /**
+    * Construct a SequenceLayout with a given length and a given graph
+    * 
+    * @param length
+    *           the given length
+    * @param agraph
+    *           the given graph
+    */
    public SequenceLayout(double length, Graph agraph)
    {
       l = length;
@@ -29,6 +45,7 @@ public class SequenceLayout implements LayoutPlanner
       nodes = (ArrayList<Node>) graph.getNodes();
    }
 
+   @Override
    public void refresh()
    {
       for (int i = 0; i < nodes.size(); i++)
