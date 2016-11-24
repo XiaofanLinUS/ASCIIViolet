@@ -46,6 +46,7 @@ public class ClassDiagramReader implements Reader
    {
       Scanner s = new Scanner(input);
       String command = "";
+
       names = new HashSet<>();
       classNodes = new HashMap<>();
 
