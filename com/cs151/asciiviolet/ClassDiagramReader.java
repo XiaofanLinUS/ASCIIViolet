@@ -36,7 +36,10 @@ public class ClassDiagramReader implements Reader
       oldInput = "";
    }
 
-   public void resetGraph()
+   /**
+    * Reset the graph
+    */
+   private void resetGraph()
    {
       ArrayList<Node> removedNodes = (ArrayList<Node>) nodes.clone();
       for (Node node : removedNodes)
