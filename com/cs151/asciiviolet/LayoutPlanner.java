@@ -35,7 +35,7 @@ public interface LayoutPlanner
    {
       if (graph.getClass().equals(ClassDiagramGraph.class))
       {
-         return new ForceDirectedLayout(120, (ArrayList<Node>) graph.getNodes(), (ArrayList<Edge>) graph.getEdges());
+         return new ForceDirectedLayout(120, graph);
       } else if (graph.getClass().equals(SequenceDiagramGraph.class))
       {
          return new SequenceLayout(120, (ArrayList<Node>) graph.getNodes());

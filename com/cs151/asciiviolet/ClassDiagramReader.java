@@ -33,6 +33,16 @@ public class ClassDiagramReader implements Reader
       classNodes = new HashMap<>();
       graph = aGraph;
       nodes = (ArrayList<Node>) graph.getNodes();
+      oldInput = "";
+   }
+
+   public void resetGraph()
+   {
+      ArrayList<Node> removedNodes = (ArrayList<Node>) nodes.clone();
+      for (Node node : removedNodes)
+      {
+         graph.removeNode(node);
+      }
    }
 
    /**
@@ -45,7 +55,14 @@ public class ClassDiagramReader implements Reader
    {
       Scanner s = new Scanner(input);
       String command = "";
+      // names = new HashSet<>();
 
+      if (oldInput.equals(input))
+      {
+         return;
+      }
+      classNodes = new HashMap<>();
+      resetGraph();
       while (s.hasNext())
       {
          command = s.nextLine();
@@ -59,6 +76,7 @@ public class ClassDiagramReader implements Reader
                count++;
             }
             String nameA = "";
+
             count++;
 
             while (count < command.length() && command.charAt(count) != ']')
@@ -76,10 +94,12 @@ public class ClassDiagramReader implements Reader
             }
             // find nodeB
             String nameB = "";
+
             count++;
 
             while (count < command.length() && command.charAt(count) != ']')
             {
+
                nameB += command.charAt(count);
                count++;
             }
@@ -92,13 +112,23 @@ public class ClassDiagramReader implements Reader
                createClassNode(nameA);
          } // end while
       } // end while
-
+      /*
+       * for (Node node : nodes) { if (node.getClass().equals(ClassNode.class))
+       * { ClassNode classNode = (ClassNode) node; if
+       * (!names.contains(classNode.getName().getText())) {
+       * System.out.println(classNode.getName().getText());
+       * graph.removeNode(classNode); } } }
+       */
+      oldInput = input;
    }
 
    private void connect(String a, String b, String op)
    {
       Node nodeA = find(a);
       Node nodeB = find(b);
+
+      // names.add(a);
+      // names.add(b);
 
       if (nodeA == null)
       {
@@ -111,7 +141,6 @@ public class ClassDiagramReader implements Reader
          while (!graph.add(nodeA, new Point2D.Double(80 * Math.random(), 80 * Math.random())))
          {
          }
-
       }
 
       if (nodeB == null)
@@ -288,8 +317,10 @@ public class ClassDiagramReader implements Reader
       return classNodes.get(name);
    }
 
+   // private HashSet<String> names;
    private ArrayList<Node> nodes;
    private Graph graph;
    private HashMap<String, Node> classNodes;
+   private String oldInput;
 
 }

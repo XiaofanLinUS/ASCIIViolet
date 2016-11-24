@@ -63,7 +63,6 @@ public class TextBar extends JPanel
       reader.read(userInput);
       panel.setModified(true);
       panel.repaint();
-
    }
 
    private String getUserInput()

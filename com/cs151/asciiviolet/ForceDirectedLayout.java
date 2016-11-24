@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.horstmann.violet.framework.Edge;
+import com.horstmann.violet.framework.Graph;
 import com.horstmann.violet.framework.Node;
 
 /**
@@ -33,6 +34,17 @@ public class ForceDirectedLayout implements LayoutPlanner
       forces = new HashMap<>();
       nodes = thatNodes;
       edges = thatEdges;
+      initialize();
+   }
+
+   public ForceDirectedLayout(double length, Graph aGraph)
+   {
+      l = length;
+      K_S = K_R / (R * l * l * l);
+      forces = new HashMap<>();
+      graph = aGraph;
+      nodes = (ArrayList<Node>) graph.getNodes();
+      edges = (ArrayList<Edge>) graph.getEdges();
       initialize();
    }
 
@@ -227,6 +239,8 @@ public class ForceDirectedLayout implements LayoutPlanner
          initializeForce(node);
       }
    }
+
+   private Graph graph;
 
    private ArrayList<Node> nodes;
    private ArrayList<Edge> edges;
