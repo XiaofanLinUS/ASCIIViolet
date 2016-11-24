@@ -48,6 +48,7 @@ public class ClassDiagramReader implements Reader
       String command = "";
 
       names = new HashSet<>();
+      classNodes = new HashMap<>();
 
       while (s.hasNext())
       {
@@ -127,7 +128,6 @@ public class ClassDiagramReader implements Reader
          while (!graph.add(nodeA, new Point2D.Double(80 * Math.random(), 80 * Math.random())))
          {
          }
-
       }
 
       if (nodeB == null)
