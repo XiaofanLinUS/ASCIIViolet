@@ -1,0 +1,36 @@
+Issues list: No
+
+It doesn't seem that there are sufficient issues to keep each team member busy for the remainder of the project.
+
+The project builds and works: No
+
+$ ant
+Buildfile: /tmp/projects/ASCIIViolet/build.xml
+
+init:
+
+props:
+   [delete] Deleting: /tmp/projects/ASCIIViolet/com/horstmann/violet/UMLEditorVersion.properties
+     [copy] Copying 1 file to /tmp/projects/ASCIIViolet/com/horstmann/violet
+
+compile:
+    [javac] /tmp/projects/ASCIIViolet/build.xml:32: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] Compiling 2 source files to /tmp/projects/ASCIIViolet
+    [javac] /tmp/projects/ASCIIViolet/com/cs151/asciiviolet/ClassDiagramReader.java:22: error: interface expected here
+    [javac] public class ClassDiagramReader implements Reader
+    [javac]                                            ^
+    [javac] Note: /tmp/projects/ASCIIViolet/com/cs151/asciiviolet/ClassDiagramReader.java uses unchecked or unsafe operations.
+    [javac] Note: Recompile with -Xlint:unchecked for details.
+    [javac] 1 error
+
+BUILD FAILED
+/tmp/projects/ASCIIViolet/build.xml:32: Compile failed; see the compiler error output for details.
+
+Total time: 1 second
+
+
+Status page: Ok
+
+Commits: Ok
+
+
