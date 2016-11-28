@@ -55,6 +55,12 @@ public class SequenceDiagramReader implements Reader
    @Override
    public void read(String input)
    {
+<<<<<<< HEAD
+=======
+	   
+	   
+	   
+>>>>>>> 2e48f5da46a7c98ff8560da49df550d4d11ed4d6
 	   int width = 0;
 	   addTopNode(input);
 	   ImplicitParameterNode topNodeA = find(input);
@@ -64,6 +70,7 @@ public class SequenceDiagramReader implements Reader
 	   graph.add(callNodeA,new Point2D.Double(0,100));
 	   
 	   width += topNodeA.getBounds().getWidth() + 50;
+<<<<<<< HEAD
 	   
 	   addTopNode("Console");
 	   ImplicitParameterNode topNodeB = find("Console");
@@ -76,6 +83,9 @@ public class SequenceDiagramReader implements Reader
 	  
 	   Direction d = new Direction(0,0);
 	   graph.connect(e,callNodeA.getConnectionPoint(d) ,callNodeB.getConnectionPoint(d));
+=======
+	  
+>>>>>>> 2e48f5da46a7c98ff8560da49df550d4d11ed4d6
 	   
 	   /*
 	   //ImplicitParameterNode topNodeA = find(input);
