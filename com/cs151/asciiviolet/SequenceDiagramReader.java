@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.horstmann.violet.CallEdge;
 import com.horstmann.violet.CallNode;
+import com.horstmann.violet.ClassRelationshipEdge;
 import com.horstmann.violet.ImplicitParameterNode;
 import com.horstmann.violet.SequenceDiagramGraph;
 import com.horstmann.violet.framework.Direction;
@@ -35,7 +36,6 @@ public class SequenceDiagramReader implements Reader
     */
    public SequenceDiagramReader(Graph graph)
    {
-      // TODO Auto-generated constructor stub
 	   //ImplicitParameterNode = new HashMap<>();
 	   this.graph = graph;
 	   TopNodes = new ArrayList<ImplicitParameterNode>();
@@ -51,14 +51,11 @@ public class SequenceDiagramReader implements Reader
          graph.removeNode(node);
       }
    }
-   
    @Override
    public void read(String input)
    {
-
 	   int count = 0;
 	   String firstInput = "";
-
 
 	   //putting in the first input to the firstInput variable
 	   while (count < input.length() && input.charAt(count) != '-')
@@ -67,9 +64,12 @@ public class SequenceDiagramReader implements Reader
           count++;
        }
 	   
+	   String operator = "";
+	   
 	   //skipping the operator
 	   while(count < input.length() && input.charAt(count) != '>'){
-		   count++;
+		   operator += input.charAt(count);
+		   	count++;
 	   }
 	   
 	   String secondInput= "";
@@ -81,53 +81,7 @@ public class SequenceDiagramReader implements Reader
 		   count++;
 	   }
 	   
-	   
-	   int width = 0;
-	   addTopNode(firstInput);
-	   ImplicitParameterNode topNodeA = find(firstInput);
-	   CallNode callNodeA = new CallNode();
-	   callNodeA.setImplicitParameter(topNodeA);
-	   graph.add(topNodeA,new Point2D.Double(width,0));
-	   graph.add(callNodeA,new Point2D.Double(0,100));
-	   
-	   width += topNodeA.getBounds().getWidth() + 50;
-
-	   
-	   addTopNode(secondInput);
-	   ImplicitParameterNode topNodeB = find(secondInput);
-	   CallNode callNodeB = new CallNode();
-	   callNodeB.setImplicitParameter(topNodeB);
-	   graph.add(topNodeB,new Point2D.Double(width,0));
-	   graph.add(callNodeB,new Point2D.Double(topNodeB.getX(),100));
-
-	   CallEdge e = new CallEdge();
-	   e.connect(callNodeA, callNodeB);
-	  
-	   Direction d = new Direction(0,0);
-	   graph.connect(e,callNodeA.getConnectionPoint(d) ,callNodeB.getConnectionPoint(d));
-
-	   /*
-	   //ImplicitParameterNode topNodeA = find(input);
-	   CallNode callNodeD = new CallNode();
-	   callNodeD.setImplicitParameter(topNodeA);
-	   //graph.add(topNodeD,new Point2D.Double(0,0));
-	   graph.add(callNodeD,new Point2D.Double(0,200));
-	   
-	   width += topNodeB.getBounds().getWidth() + 20;
-	   
-	   addTopNode("Mailbox");
-	   ImplicitParameterNode topNodeC = find("Mailbox");
-	   CallNode callNodeC = new CallNode();
-	   callNodeC.setImplicitParameter(topNodeC);
-	   graph.add(topNodeC,new Point2D.Double(width,0));
-	   graph.add(callNodeC,new Point2D.Double(width,100));
-	   
-	   graph.connect(new CallEdge(),callNodeD ,callNodeC);
-	   
-	   */
-	   //callNodeA.
-	   //topNodeA.addEdge(new CallEdge(), topNodeA.getConnectionPoint(new Direction(1,0)), topNodeB.getConnectionPoint(new Direction(0,1)))
-	   
+	   connect(firstInput,secondInput,operator);
 	   //resetGraph();
 	   /*
 	   int width = 0;
@@ -146,24 +100,50 @@ public class SequenceDiagramReader implements Reader
 	   	   width += node.getBounds().getWidth() + 10;
 	   }
       */
+   }
+   
+   private void connect(String firstInput,String secondInput,String operator)
+   {
+	   int  width = 0;
+	   
+	   addTopNode(firstInput);
+	   ImplicitParameterNode topNodeA = find(firstInput);
+	   graph.add(topNodeA,new Point2D.Double(width,0));
 	  
+	   //distance between the top nodes
+	   width += topNodeA.getBounds().getWidth() + 50;
+
+	   addTopNode(secondInput);
+	   ImplicitParameterNode topNodeB = find(secondInput);
+	   graph.add(topNodeB,new Point2D.Double(width,0));
+   	
+	   operate(topNodeA, topNodeB, operator);
    }
    
-   private void connect(String a,String b,String op)
+   private void operate(ImplicitParameterNode topNodeA, ImplicitParameterNode topNodeB, String operator)
    {
-	   ImplicitParameterNode nodeA = find(a);
-	   ImplicitParameterNode nodeB = find(b);
-	   if(nodeA == null)
-		   addTopNode(a);
-	   if(nodeB == null)
-		   addTopNode(b);
-	   operate(nodeA, nodeB, op);
-   }
-   
-   private void operate(ImplicitParameterNode nodeA, ImplicitParameterNode nodeB, String op)
-   {
-	 //if (op == ">")
-	   //nodeA.addEdge(new CallEdge(), p1, p2)
+	   CallNode callNodeA = new CallNode();
+	   callNodeA.setImplicitParameter(topNodeA);
+	   graph.add(callNodeA,new Point2D.Double(0,100));
+	   
+	   CallNode callNodeB = new CallNode();
+	   callNodeB.setImplicitParameter(topNodeB);
+	   graph.add(callNodeB,new Point2D.Double(topNodeB.getX(),100));
+	   
+	   if(operator.equals("-")){
+		   CallEdge edge = new CallEdge();
+		   edge.connect(callNodeA, callNodeB);
+		   Direction d = new Direction(0,0);
+		   graph.connect(edge,callNodeA.getConnectionPoint(d) ,callNodeB.getConnectionPoint(d));
+	  }
+	  /* 
+	   if(operator.equals("--")){
+		   //insert different kind of edge here
+		   edge.connect(callNodeA, callNodeB);
+		   Direction d = new Direction(0,0);
+		   graph.connect(edge,callNodeA.getConnectionPoint(d) ,callNodeB.getConnectionPoint(d));
+	   }
+	  */ 
    }
 
    private ImplicitParameterNode find(String name)
@@ -186,6 +166,7 @@ public class SequenceDiagramReader implements Reader
 	   TopNodes.add(topNode);
    }
    private ArrayList<ImplicitParameterNode> TopNodes;
+   private SequenceDiagramGraph seqGraph;
    private Graph graph;
    //private HashMap<String, Node> classNodes;
    private String oldInput;
