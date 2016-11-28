@@ -55,19 +55,53 @@ public class SequenceDiagramReader implements Reader
    @Override
    public void read(String input)
    {
+	   int count = 0;
+	   String firstInput = "";
 	   
+	   //putting in the first input to the firstInput variable
+	   while (count < input.length() && input.charAt(count) != '-')
+       {
+		   firstInput += input.charAt(count);
+          count++;
+       }
+	   
+	   //skipping the operator
+	   while(count < input.length() && input.charAt(count) != '>'){
+		   count++;
+	   }
+	   
+	   String secondInput= "";
+	   count++;
+	   
+	   //putting the second input to the secondInput variable
+	   while(count < input.length()){
+		   secondInput += input.charAt(count);
+		   count++;
+	   }
 	   
 	   
 	   int width = 0;
-	   addTopNode(input);
-	   ImplicitParameterNode topNodeA = find(input);
+	   addTopNode(firstInput);
+	   ImplicitParameterNode topNodeA = find(firstInput);
 	   CallNode callNodeA = new CallNode();
 	   callNodeA.setImplicitParameter(topNodeA);
 	   graph.add(topNodeA,new Point2D.Double(width,0));
 	   graph.add(callNodeA,new Point2D.Double(0,100));
 	   
 	   width += topNodeA.getBounds().getWidth() + 50;
+	   
+	   addTopNode(secondInput);
+	   ImplicitParameterNode topNodeB = find(secondInput);
+	   CallNode callNodeB = new CallNode();
+	   callNodeB.setImplicitParameter(topNodeB);
+	   graph.add(topNodeB,new Point2D.Double(width,0));
+	   graph.add(callNodeB,new Point2D.Double(topNodeB.getX(),100));
+	   
+	   CallEdge e = new CallEdge();
+	   e.connect(callNodeA, callNodeB);
 	  
+	   Direction d = new Direction(0,0);
+	   graph.connect(e,callNodeA.getConnectionPoint(d) ,callNodeB.getConnectionPoint(d));
 	   
 	   /*
 	   //ImplicitParameterNode topNodeA = find(input);
