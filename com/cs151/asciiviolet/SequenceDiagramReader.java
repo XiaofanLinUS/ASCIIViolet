@@ -70,8 +70,8 @@ public class SequenceDiagramReader implements Reader
 	   graph.add(callNodeA,new Point2D.Double(0,100));
 	   
 	   width += topNodeA.getBounds().getWidth() + 50;
-<<<<<<< HEAD
-	   
+
+	   // for testing purpose 
 	   addTopNode("Console");
 	   ImplicitParameterNode topNodeB = find("Console");
 	   CallNode callNodeB = new CallNode();
@@ -83,10 +83,7 @@ public class SequenceDiagramReader implements Reader
 	  
 	   Direction d = new Direction(0,0);
 	   graph.connect(e,callNodeA.getConnectionPoint(d) ,callNodeB.getConnectionPoint(d));
-=======
-	  
->>>>>>> 2e48f5da46a7c98ff8560da49df550d4d11ed4d6
-	   
+
 	   /*
 	   //ImplicitParameterNode topNodeA = find(input);
 	   CallNode callNodeD = new CallNode();
