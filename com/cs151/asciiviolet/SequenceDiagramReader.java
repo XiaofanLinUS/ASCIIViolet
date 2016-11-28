@@ -1,24 +1,20 @@
 package com.cs151.asciiviolet;
 
-
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import com.horstmann.violet.CallEdge;
 import com.horstmann.violet.CallNode;
 import com.horstmann.violet.ClassRelationshipEdge;
 import com.horstmann.violet.ImplicitParameterNode;
+import com.horstmann.violet.NoteEdge;
 import com.horstmann.violet.SequenceDiagramGraph;
 import com.horstmann.violet.framework.Direction;
 import com.horstmann.violet.framework.Edge;
-
-
 import com.horstmann.violet.framework.Graph;
 import com.horstmann.violet.framework.MultiLineString;
 import com.horstmann.violet.framework.Node;
-
 /**
  * A command reader that reads a string and execute it
  * 
@@ -51,6 +47,7 @@ public class SequenceDiagramReader implements Reader
          graph.removeNode(node);
       }
    }
+   
    @Override
    public void read(String input)
    {
@@ -96,7 +93,6 @@ public class SequenceDiagramReader implements Reader
 	   		   graph.add(cnode, new Point2D.Double(width,height));
 	   		   height += cnode.getBounds().getHeight() + 10;
 	   	   }
-	   	    
 	   	   width += node.getBounds().getWidth() + 10;
 	   }
       */
@@ -104,6 +100,7 @@ public class SequenceDiagramReader implements Reader
    
    private void connect(String firstInput,String secondInput,String operator)
    {
+	   //separator between nodes
 	   int  width = 0;
 	   
 	   addTopNode(firstInput);
@@ -145,7 +142,7 @@ public class SequenceDiagramReader implements Reader
 	   }
 	  */ 
    }
-
+   
    private ImplicitParameterNode find(String name)
    {
 	   ImplicitParameterNode aNode = null;
@@ -165,10 +162,9 @@ public class SequenceDiagramReader implements Reader
 	   topNode.setName(string);
 	   TopNodes.add(topNode);
    }
+   
    private ArrayList<ImplicitParameterNode> TopNodes;
-   private SequenceDiagramGraph seqGraph;
    private Graph graph;
-   //private HashMap<String, Node> classNodes;
    private String oldInput;
-
+   //private HashMap<String, Node> classNodes;
 }
