@@ -55,9 +55,11 @@ public class SequenceDiagramReader implements Reader
    @Override
    public void read(String input)
    {
+
 	   int count = 0;
 	   String firstInput = "";
-	   
+
+
 	   //putting in the first input to the firstInput variable
 	   while (count < input.length() && input.charAt(count) != '-')
        {
@@ -89,6 +91,7 @@ public class SequenceDiagramReader implements Reader
 	   graph.add(callNodeA,new Point2D.Double(0,100));
 	   
 	   width += topNodeA.getBounds().getWidth() + 50;
+
 	   
 	   addTopNode(secondInput);
 	   ImplicitParameterNode topNodeB = find(secondInput);
@@ -96,13 +99,13 @@ public class SequenceDiagramReader implements Reader
 	   callNodeB.setImplicitParameter(topNodeB);
 	   graph.add(topNodeB,new Point2D.Double(width,0));
 	   graph.add(callNodeB,new Point2D.Double(topNodeB.getX(),100));
-	   
+
 	   CallEdge e = new CallEdge();
 	   e.connect(callNodeA, callNodeB);
 	  
 	   Direction d = new Direction(0,0);
 	   graph.connect(e,callNodeA.getConnectionPoint(d) ,callNodeB.getConnectionPoint(d));
-	   
+
 	   /*
 	   //ImplicitParameterNode topNodeA = find(input);
 	   CallNode callNodeD = new CallNode();
