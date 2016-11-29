@@ -9,6 +9,7 @@ import com.horstmann.violet.CallNode;
 import com.horstmann.violet.ClassRelationshipEdge;
 import com.horstmann.violet.ImplicitParameterNode;
 import com.horstmann.violet.NoteEdge;
+import com.horstmann.violet.ReturnEdge;
 import com.horstmann.violet.SequenceDiagramGraph;
 import com.horstmann.violet.framework.Direction;
 import com.horstmann.violet.framework.Edge;
@@ -128,19 +129,16 @@ public class SequenceDiagramReader implements Reader
 	   graph.add(callNodeB,new Point2D.Double(topNodeB.getX(),100));
 	   
 	   if(operator.equals("-")){
-		   CallEdge edge = new CallEdge();
-		   edge.connect(callNodeA, callNodeB);
 		   Direction d = new Direction(0,0);
-		   graph.connect(edge,callNodeA.getConnectionPoint(d) ,callNodeB.getConnectionPoint(d));
+		   graph.connect(new CallEdge(),callNodeA.getConnectionPoint(d) ,callNodeB.getConnectionPoint(d));
 	  }
-	  /* 
+	   //need to save calledge incase it has a return edge to other calledge
+	   /*
 	   if(operator.equals("--")){
-		   //insert different kind of edge here
-		   edge.connect(callNodeA, callNodeB);
 		   Direction d = new Direction(0,0);
-		   graph.connect(edge,callNodeA.getConnectionPoint(d) ,callNodeB.getConnectionPoint(d));
-	   }
-	  */ 
+		   graph.connect(new ReturnEdge()???,callNodeA.getConnectionPoint(d) ,callNodeB.getConnectionPoint(d));
+	   }*/
+	   
    }
    
    private ImplicitParameterNode find(String name)
@@ -164,6 +162,7 @@ public class SequenceDiagramReader implements Reader
    }
    
    private ArrayList<ImplicitParameterNode> TopNodes;
+   private ArrayList<CallNode> callnodes;
    private Graph graph;
    private String oldInput;
    //private HashMap<String, Node> classNodes;

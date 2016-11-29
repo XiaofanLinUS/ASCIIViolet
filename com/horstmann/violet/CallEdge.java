@@ -51,8 +51,9 @@ public class CallEdge extends SegmentedLineEdge
    public void setSignal(boolean newValue) 
    { 
       signal = newValue; 
-      if (signal)
+      if (signal){
          setEndArrowHead(ArrowHead.HALF_V);
+      }
       else
          setEndArrowHead(ArrowHead.V);
    }
