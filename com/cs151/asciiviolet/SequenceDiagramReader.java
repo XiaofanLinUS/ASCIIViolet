@@ -94,7 +94,6 @@ public class SequenceDiagramReader implements Reader
    private void connect(String firstInput, String secondInput, String operator)
    {
       // separator between nodes
-
       ImplicitParameterNode topNodeA = find(firstInput);
       ImplicitParameterNode topNodeB = find(secondInput);
 
@@ -106,28 +105,33 @@ public class SequenceDiagramReader implements Reader
       {
          topNodeB = addTopNode(secondInput);
       }
-
       operate(topNodeA, 1, topNodeB, 1, operator);
    }
 
    private void operate(ImplicitParameterNode topNodeA, int indexA, ImplicitParameterNode topNodeB, int indexB,
          String operator)
    {
-
       CallNode callNodeA = find(topNodeA, indexA);
+      System.out.println(callNodeA);
       CallNode callNodeB = find(topNodeB, indexB);
+      System.out.println(callNodeB);
       if (callNodeA == null)
       {
          callNodeA = addCallNode(topNodeA);
       }
+
+      System.out.println("a");
       if (callNodeB == null)
       {
          callNodeB = addCallNode(topNodeB);
       }
+
+      System.out.println("b");
       if (operator.equals("-"))
       {
          Point2D callPointA = new Point2D.Double(callNodeA.getX(), callNodeA.getY());
-         Point2D callPointB = new Point2D.Double(callNodeB.getX(), callNodeA.getY());
+         Point2D callPointB = new Point2D.Double(callNodeB.getX(), callNodeB.getY());
+
          if (TopNodes.indexOf(topNodeA) <= TopNodes.indexOf(topNodeB))
          {
             graph.connect(new CallEdge(), callPointA, callPointB);
@@ -173,7 +177,7 @@ public class SequenceDiagramReader implements Reader
       callNode.setImplicitParameter(topNode);
       callNodes.get(topNode).add(callNode);
 
-      while (graph.add(callNode, new Point2D.Double(topNode.getX(), 200 * Math.random())))
+      while (!graph.add(callNode, new Point2D.Double(topNode.getX(), 200 * Math.random())))
       {
       }
       ;
@@ -187,7 +191,7 @@ public class SequenceDiagramReader implements Reader
       string.setText(name);
       topNode.setName(string);
       TopNodes.add(topNode);
-      while (!graph.add(topNode, new Point2D.Double(80 * Math.random(), 50)))
+      while (!graph.add(topNode, new Point2D.Double(100 * Math.random(), 100 * Math.random())))
       {
       }
 
