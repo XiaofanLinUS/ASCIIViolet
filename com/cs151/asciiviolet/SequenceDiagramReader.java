@@ -3,6 +3,7 @@ package com.cs151.asciiviolet;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 import com.horstmann.violet.CallEdge;
 import com.horstmann.violet.CallNode;
@@ -50,36 +51,42 @@ public class SequenceDiagramReader implements Reader
    @Override
    public void read(String input)
    {
-      int count = 0;
-      String firstInput = "";
       resetGraph();
-
-      // putting in the first input to the firstInput variable
-      while (count < input.length() && input.charAt(count) != '-')
+      Scanner scan = new Scanner(input);
+      while(scan.hasNextLine())
       {
-         firstInput += input.charAt(count);
-         count++;
+          String command = scan.nextLine();
+          int count = 0;
+          String firstInput = "";
+
+          // putting in the first input to the firstInput variable
+          while (count < command.length() && command.charAt(count) != '-')
+          {
+             firstInput += command.charAt(count);
+             count++;
+          }
+          String operator = "";
+
+          // skipping the operator
+          while (count < command.length() && command.charAt(count) != '>')
+          {
+             operator += command.charAt(count);
+             count++;
+          }
+
+          String secondInput = "";
+          count++;
+
+          // putting the second input to the secondInput variable
+          while (count < command.length())
+          {
+             secondInput += command.charAt(count);
+             count++;
+          }
+
+          connect(firstInput, secondInput, operator);
       }
-      String operator = "";
-
-      // skipping the operator
-      while (count < input.length() && input.charAt(count) != '>')
-      {
-         operator += input.charAt(count);
-         count++;
-      }
-
-      String secondInput = "";
-      count++;
-
-      // putting the second input to the secondInput variable
-      while (count < input.length())
-      {
-         secondInput += input.charAt(count);
-         count++;
-      }
-
-      connect(firstInput, secondInput, operator);
+      
       // resetGraph();
       /*
        * int width = 0; for(ImplicitParameterNode node: TopNodes) {
