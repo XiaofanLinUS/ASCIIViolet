@@ -86,7 +86,30 @@ public class SequenceDiagramReader implements Reader
 
           connect(firstInput, secondInput, operator);
       }
+<<<<<<< HEAD
       
+=======
+      String operator = "";
+
+      // skipping the operator
+      while (count < input.length() && input.charAt(count) != '>')
+      {
+         operator += input.charAt(count);
+         count++;
+      }
+
+      String secondInput = "";
+      count++;
+
+      // putting the second input to the secondInput variable
+      while (count < input.length() && input.charAt(count) != '\n')
+      {
+         secondInput += input.charAt(count);
+         count++;
+      }
+
+      connect(firstInput, secondInput, operator);
+>>>>>>> 1553e6cc25416df0a50253c5dfac19585b218410
       // resetGraph();
       /*
        * int width = 0; for(ImplicitParameterNode node: TopNodes) {
@@ -148,12 +171,6 @@ public class SequenceDiagramReader implements Reader
          }
 
       }
-      // need to save calledge incase it has a return edge to other calledge
-      /*
-       * if(operator.equals("--")){ Direction d = new Direction(0,0);
-       * graph.connect(new ReturnEdge()???,callNodeA.getConnectionPoint(d)
-       * ,callNodeB.getConnectionPoint(d)); }
-       */
    }
 
    private CallNode find(ImplicitParameterNode topNode, int index)
