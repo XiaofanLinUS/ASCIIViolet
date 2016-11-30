@@ -73,7 +73,7 @@ public class SequenceDiagramReader implements Reader
       count++;
 
       // putting the second input to the secondInput variable
-      while (count < input.length())
+      while (count < input.length() && input.charAt(count) != '\n')
       {
          secondInput += input.charAt(count);
          count++;
@@ -141,12 +141,6 @@ public class SequenceDiagramReader implements Reader
          }
 
       }
-      // need to save calledge incase it has a return edge to other calledge
-      /*
-       * if(operator.equals("--")){ Direction d = new Direction(0,0);
-       * graph.connect(new ReturnEdge()???,callNodeA.getConnectionPoint(d)
-       * ,callNodeB.getConnectionPoint(d)); }
-       */
    }
 
    private CallNode find(ImplicitParameterNode topNode, int index)
