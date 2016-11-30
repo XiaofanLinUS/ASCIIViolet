@@ -58,42 +58,45 @@ public class SequenceDiagramReader implements Reader
          String secondInput = "";
          String secondNum = "";
 
-         // putting in the first input to the firstInput variable
-         while (count < command.length() && command.charAt(count) != '|')
-         {
-            firstInput += command.charAt(count);
-            count++;
-         }
-         count++;
-         // first number
-         while (count < command.length() && command.charAt(count) != '-')
-         {
-            firstNum += command.charAt(count);
-            count++;
-         }
-         // skipping the operator
-         while (count < command.length() && command.charAt(count) != '>')
-         {
-            operator += command.charAt(count);
-            count++;
-         }
-         count++;
-
-         // putting the second input to the secondInput variable
-         while (count < command.length() && command.charAt(count) != '|')
-         {
-            secondInput += command.charAt(count);
-            count++;
-         }
-         count++;
-         // Second Number
          while (count < command.length())
          {
-            secondNum += command.charAt(count);
+            // putting in the first input to the firstInput variable
+            while (count < command.length() && command.charAt(count) != '|')
+            {
+               firstInput += command.charAt(count);
+               count++;
+            }
             count++;
-         }
+            // first number
+            while (count < command.length() && command.charAt(count) != '-')
+            {
+               firstNum += command.charAt(count);
+               count++;
+            }
+            // skipping the operator
+            while (count < command.length() && command.charAt(count) != '>')
+            {
+               operator += command.charAt(count);
+               count++;
+            }
+            count++;
 
-         connect(firstInput, Integer.parseInt(firstNum) - 1, secondInput, Integer.parseInt(secondNum) - 1, operator);
+            // putting the second input to the secondInput variable
+            while (count < command.length() && command.charAt(count) != '|')
+            {
+               secondInput += command.charAt(count);
+               count++;
+            }
+            count++;
+            // Second Number
+            while (count < command.length())
+            {
+               secondNum += command.charAt(count);
+               count++;
+            }
+
+            connect(firstInput, Integer.parseInt(firstNum) - 1, secondInput, Integer.parseInt(secondNum) - 1, operator);
+         }
       }
    }
 
