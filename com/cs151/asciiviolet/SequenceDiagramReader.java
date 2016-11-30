@@ -3,6 +3,7 @@ package com.cs151.asciiviolet;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 import com.horstmann.violet.CallEdge;
 import com.horstmann.violet.CallNode;
@@ -10,6 +11,7 @@ import com.horstmann.violet.ImplicitParameterNode;
 import com.horstmann.violet.ReturnEdge;
 import com.horstmann.violet.framework.Graph;
 import com.horstmann.violet.framework.MultiLineString;
+import com.horstmann.violet.framework.Node;
 
 /**
  * A command reader that reads a string and execute it
@@ -39,6 +41,8 @@ public class SequenceDiagramReader implements Reader
    {
       // ArrayList<ImplicitParameterNode> removedNodes =
       // (ArrayList<ImplicitParameterNode>) TopNodes.clone();
+	   
+	  
       for (ImplicitParameterNode node : TopNodes)
       {
          graph.removeNode(node);
@@ -50,37 +54,41 @@ public class SequenceDiagramReader implements Reader
    @Override
    public void read(String input)
    {
-      int count = 0;
-      String firstInput = "";
-      resetGraph();
-
-      // putting in the first input to the firstInput variable
-      while (count < input.length() && input.charAt(count) != '-')
-      {
-         firstInput += input.charAt(count);
-         count++;
+	  resetGraph();
+	  int count = 0;
+      String command = "";
+      Scanner s = new Scanner(input);
+      while(s.hasNext()){
+    	  command = s.nextLine();
+    	  count = 0;
+	      // putting in the first input to the firstInput variable
+    	  String firstInput = "";
+    	  while (count < command.length() && command.charAt(count) != '-')
+	      {
+	         firstInput += command.charAt(count);
+	         count++;
+	      }
+	      String operator = "";
+	
+	      // skipping the operator
+	      while (count < command.length() && command.charAt(count) != '>')
+	      {
+	         operator += command.charAt(count);
+	         count++;
+	      }
+	
+	      String secondInput = "";
+	      count++;
+	
+	      // putting the second input to the secondInput variable
+	      while (count < command.length() && command.charAt(count) != '\n')
+	      {
+	         secondInput += command.charAt(count);
+	         count++;
+	      }
+	
+	      connect(firstInput, secondInput, operator);
       }
-      String operator = "";
-
-      // skipping the operator
-      while (count < input.length() && input.charAt(count) != '>')
-      {
-         operator += input.charAt(count);
-         count++;
-      }
-
-      String secondInput = "";
-      count++;
-
-      // putting the second input to the secondInput variable
-      while (count < input.length() && input.charAt(count) != '\n')
-      {
-         secondInput += input.charAt(count);
-         count++;
-      }
-
-      connect(firstInput, secondInput, operator);
-      // resetGraph();
       /*
        * int width = 0; for(ImplicitParameterNode node: TopNodes) {
        * graph.add(node,new Point2D.Double(width,0)); /* ArrayList<Node> list =
