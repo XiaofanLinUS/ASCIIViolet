@@ -59,14 +59,8 @@ public class TextBar extends JPanel
 
    private void executeCommand()
    {
-	  userInput = textfield.getText();
-      reader.read(userInput);
-      panel.setModified(true);
-      panel.repaint();
+      userInput = textfield.getText();
+      panel.setGraph(reader.read(userInput));
    }
 
-   private String getUserInput()
-   {
-      return userInput;
-   }
 }

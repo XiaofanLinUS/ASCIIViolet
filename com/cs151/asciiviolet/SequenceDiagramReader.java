@@ -9,6 +9,7 @@ import com.horstmann.violet.CallEdge;
 import com.horstmann.violet.CallNode;
 import com.horstmann.violet.ImplicitParameterNode;
 import com.horstmann.violet.ReturnEdge;
+import com.horstmann.violet.SequenceDiagramGraph;
 import com.horstmann.violet.framework.Graph;
 import com.horstmann.violet.framework.MultiLineString;
 
@@ -28,23 +29,20 @@ public class SequenceDiagramReader implements Reader
     */
    public SequenceDiagramReader(Graph graph)
    {
-      this.graph = graph;
+      this.graph = (SequenceDiagramGraph) graph;
       TopNodes = new ArrayList<ImplicitParameterNode>();
       callNodes = new HashMap<>();
    }
 
    private void resetGraph()
    {
-      for (ImplicitParameterNode node : TopNodes)
-      {
-         graph.removeNode(node);
-      }
+      graph = new SequenceDiagramGraph();
       TopNodes = new ArrayList<ImplicitParameterNode>();
       callNodes = new HashMap<>();
    }
 
    @Override
-   public void read(String input)
+   public Graph read(String input)
    {
       resetGraph();
       Scanner scan = new Scanner(input);
@@ -57,7 +55,7 @@ public class SequenceDiagramReader implements Reader
          String operator = "";
          String secondInput = "";
          String secondNum = "";
-
+         String label = "";
          while (count < command.length())
          {
             // putting in the first input to the firstInput variable
@@ -89,18 +87,27 @@ public class SequenceDiagramReader implements Reader
             }
             count++;
             // Second Number
-            while (count < command.length())
+            while (count < command.length() && command.charAt(count) != ':')
             {
                secondNum += command.charAt(count);
                count++;
             }
-
-            connect(firstInput, Integer.parseInt(firstNum) - 1, secondInput, Integer.parseInt(secondNum) - 1, operator);
+            count++;
+            while (count < command.length())
+            {
+               label += command.charAt(count);
+               count++;
+            }
+            connect(firstInput, Integer.parseInt(firstNum) - 1, secondInput, Integer.parseInt(secondNum) - 1, operator,
+                  label);
          }
+
       }
+      return graph;
    }
 
-   private void connect(String firstInput, int firstNum, String secondInput, int secondNum, String operator)
+   private void connect(String firstInput, int firstNum, String secondInput, int secondNum, String operator,
+         String label)
    {
       // separator between nodes
       ImplicitParameterNode topNodeA = find(firstInput);
@@ -114,28 +121,31 @@ public class SequenceDiagramReader implements Reader
       {
          topNodeB = addTopNode(secondInput);
       }
-      operate(topNodeA, firstNum, topNodeB, secondNum, operator);
+      operate(topNodeA, firstNum, topNodeB, secondNum, operator, label);
    }
 
    private void operate(ImplicitParameterNode topNodeA, int indexA, ImplicitParameterNode topNodeB, int indexB,
-         String operator)
+         String operator, String label)
    {
       CallNode callNodeA = find(topNodeA, indexA);
       CallNode callNodeB = find(topNodeB, indexB);
 
       if (operator.equals("-"))
       {
-         Point2D callPointA = new Point2D.Double(callNodeA.getX(), callNodeA.getY());
-         Point2D callPointB = new Point2D.Double(callNodeB.getX(), callNodeB.getY());
+         Point2D callPointA = new Point2D.Double(callNodeA.getX() + 5, callNodeA.getY() + 5);
+         Point2D callPointB = new Point2D.Double(callNodeB.getX() + 5, callNodeB.getY() + 5);
 
          if (TopNodes.indexOf(topNodeA) <= TopNodes.indexOf(topNodeB))
          {
-            graph.connect(new CallEdge(), callPointA, callPointB);
+            CallEdge edge = new CallEdge();
+            edge.setMiddleLabel(label);
+            graph.connect(edge, callPointA, callPointB);
          } else
          {
-            graph.connect(new ReturnEdge(), callPointA, callPointB);
+            ReturnEdge edge = new ReturnEdge();
+            edge.setMiddleLabel(label);
+            graph.connect(edge, callPointA, callPointB);
          }
-
       }
    }
 
@@ -172,8 +182,11 @@ public class SequenceDiagramReader implements Reader
       callNode.setImplicitParameter(topNode);
       callNodes.get(topNode).add(callNode);
 
-      while (!graph.add(callNode, new Point2D.Double(topNode.getX(), 200 * Math.random()))){}
-      
+
+      while (!graph.add(callNode, new Point2D.Double(topNode.getX() + 5, 200 * Math.random())))
+      {
+      }
+
       return callNode;
    }
 
@@ -184,15 +197,17 @@ public class SequenceDiagramReader implements Reader
       string.setText(name);
       topNode.setName(string);
       TopNodes.add(topNode);
-      
-      while (!graph.add(topNode, new Point2D.Double(100 * Math.random(), 100 * Math.random()))){}
+
+      while (!graph.add(topNode, new Point2D.Double(200 * Math.random(), 0)))
+      {
+      }
+
 
       callNodes.put(topNode, new ArrayList<CallNode>());
       return topNode;
    }
 
    private ArrayList<ImplicitParameterNode> TopNodes;
-   private Graph graph;
-   private String oldInput;
+   private SequenceDiagramGraph graph;
    private HashMap<ImplicitParameterNode, ArrayList<CallNode>> callNodes;
 }

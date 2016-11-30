@@ -45,7 +45,7 @@ public interface LayoutPlanner
          return new ForceDirectedLayout(120, graph);
       } else if (graph.getClass().equals(SequenceDiagramGraph.class))
       {
-         return new SequenceLayout(120, (ArrayList<Node>) graph.getNodes());
+         return new SequenceLayout(120, graph);
       } else
       {
          return defaultPlan((ArrayList<Node>) graph.getNodes(), (ArrayList<Edge>) graph.getEdges());
