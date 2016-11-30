@@ -143,7 +143,6 @@ public class SequenceDiagramGraph extends SmartGraph
       }
 
       top += CallNode.CALL_YGAP;
-      
 
       for (int i = 0; i < objects.size(); i++)
       {
