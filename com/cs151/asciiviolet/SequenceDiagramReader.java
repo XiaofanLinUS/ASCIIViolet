@@ -50,7 +50,6 @@ public class SequenceDiagramReader implements Reader
       Scanner scan = new Scanner(input);
       while (scan.hasNextLine())
       {
-<<<<<<< HEAD
          String command = scan.nextLine();
          int count = 0;
          String firstInput = "";
@@ -96,104 +95,6 @@ public class SequenceDiagramReader implements Reader
 
          connect(firstInput, Integer.parseInt(firstNum) - 1, secondInput, Integer.parseInt(secondNum) - 1, operator);
       }
-||||||| merged common ancestors
-          String command = scan.nextLine();
-          int count = 0;
-          String firstInput = "";
-
-          // putting in the first input to the firstInput variable
-          while (count < command.length() && command.charAt(count) != '-')
-          {
-             firstInput += command.charAt(count);
-             count++;
-          }
-          String operator = "";
-
-          // skipping the operator
-          while (count < command.length() && command.charAt(count) != '>')
-          {
-             operator += command.charAt(count);
-             count++;
-          }
-
-          String secondInput = "";
-          count++;
-
-          // putting the second input to the secondInput variable
-          while (count < command.length())
-          {
-             secondInput += command.charAt(count);
-             count++;
-          }
-
-          connect(firstInput, secondInput, operator);
-      }
-<<<<<<< HEAD
-      
-=======
-      String operator = "";
-
-      // skipping the operator
-      while (count < input.length() && input.charAt(count) != '>')
-      {
-         operator += input.charAt(count);
-         count++;
-      }
-
-      String secondInput = "";
-      count++;
-
-      // putting the second input to the secondInput variable
-      while (count < input.length() && input.charAt(count) != '\n')
-      {
-         secondInput += input.charAt(count);
-         count++;
-      }
-
-      connect(firstInput, secondInput, operator);
->>>>>>> 1553e6cc25416df0a50253c5dfac19585b218410
-      // resetGraph();
-      /*
-       * int width = 0; for(ImplicitParameterNode node: TopNodes) {
-       * graph.add(node,new Point2D.Double(width,0)); /* ArrayList<Node> list =
-       * (ArrayList<Node>) node.getChildren(); int height = 100; for(Node cnode:
-       * list) { graph.add(cnode, new Point2D.Double(width,height)); height +=
-       * cnode.getBounds().getHeight() + 10; } width +=
-       * node.getBounds().getWidth() + 10; }
-       */
-=======
-          String command = scan.nextLine();
-          int count = 0;
-          String firstInput = "";
-
-          // putting in the first input to the firstInput variable
-          while (count < command.length() && command.charAt(count) != '-')
-          {
-             firstInput += command.charAt(count);
-             count++;
-          }
-          String operator = "";
-
-          // skipping the operator
-          while (count < command.length() && command.charAt(count) != '>')
-          {
-             operator += command.charAt(count);
-             count++;
-          }
-
-          String secondInput = "";
-          count++;
-
-          // putting the second input to the secondInput variable
-          while (count < command.length())
-          {
-             secondInput += command.charAt(count);
-             count++;
-          }
-
-          connect(firstInput, secondInput, operator);
-      }
->>>>>>> c7ffc380a85c0e5f2bc685b45009141386ad4fe8
    }
 
    private void connect(String firstInput, int firstNum, String secondInput, int secondNum, String operator)
