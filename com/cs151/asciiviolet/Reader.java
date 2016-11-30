@@ -18,8 +18,9 @@ public interface Reader
     * 
     * @param command
     *           the given input
+    * @return
     */
-   void read(String command);
+   Graph read(String command);
 
    /**
     * Return the corresponding reader with a given graph
@@ -31,16 +32,15 @@ public interface Reader
    static Reader get(Graph graph)
    {
       Reader reader = null;
-	   if (graph.getClass().equals(ClassDiagramGraph.class))
+      if (graph.getClass().equals(ClassDiagramGraph.class))
       {
-        reader =  new ClassDiagramReader(graph);
-      }
-      else if(graph.getClass().equals(SequenceDiagramGraph.class))
+         reader = new ClassDiagramReader(graph);
+      } else if (graph.getClass().equals(SequenceDiagramGraph.class))
       {
-    	reader = new SequenceDiagramReader(graph);
+         reader = new SequenceDiagramReader(graph);
       }
-    	  return reader;
-     
+      return reader;
+
    }
 
 }

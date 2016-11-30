@@ -9,6 +9,7 @@ import com.horstmann.violet.CallEdge;
 import com.horstmann.violet.CallNode;
 import com.horstmann.violet.ImplicitParameterNode;
 import com.horstmann.violet.ReturnEdge;
+import com.horstmann.violet.SequenceDiagramGraph;
 import com.horstmann.violet.framework.Graph;
 import com.horstmann.violet.framework.MultiLineString;
 
@@ -28,23 +29,20 @@ public class SequenceDiagramReader implements Reader
     */
    public SequenceDiagramReader(Graph graph)
    {
-      this.graph = graph;
+      this.graph = (SequenceDiagramGraph) graph;
       TopNodes = new ArrayList<ImplicitParameterNode>();
       callNodes = new HashMap<>();
    }
 
    private void resetGraph()
    {
-      for (ImplicitParameterNode node : TopNodes)
-      {
-         graph.removeNode(node);
-      }
+      graph = new SequenceDiagramGraph();
       TopNodes = new ArrayList<ImplicitParameterNode>();
       callNodes = new HashMap<>();
    }
 
    @Override
-   public void read(String input)
+   public Graph read(String input)
    {
       resetGraph();
       Scanner scan = new Scanner(input);
@@ -105,6 +103,7 @@ public class SequenceDiagramReader implements Reader
          }
 
       }
+      return graph;
    }
 
    private void connect(String firstInput, int firstNum, String secondInput, int secondNum, String operator,
@@ -133,8 +132,8 @@ public class SequenceDiagramReader implements Reader
 
       if (operator.equals("-"))
       {
-         Point2D callPointA = new Point2D.Double(callNodeA.getX(), callNodeA.getY());
-         Point2D callPointB = new Point2D.Double(callNodeB.getX(), callNodeB.getY());
+         Point2D callPointA = new Point2D.Double(callNodeA.getX() + 5, callNodeA.getY() + 5);
+         Point2D callPointB = new Point2D.Double(callNodeB.getX() + 5, callNodeB.getY() + 5);
 
          if (TopNodes.indexOf(topNodeA) <= TopNodes.indexOf(topNodeB))
          {
@@ -183,7 +182,7 @@ public class SequenceDiagramReader implements Reader
       callNode.setImplicitParameter(topNode);
       callNodes.get(topNode).add(callNode);
 
-      while (!graph.add(callNode, new Point2D.Double(topNode.getX(), 200 * Math.random())))
+      while (!graph.add(callNode, new Point2D.Double(topNode.getX() + 5, 200 * Math.random())))
       {
       }
       ;
@@ -197,7 +196,7 @@ public class SequenceDiagramReader implements Reader
       string.setText(name);
       topNode.setName(string);
       TopNodes.add(topNode);
-      while (!graph.add(topNode, new Point2D.Double(100 * Math.random(), 100 * Math.random())))
+      while (!graph.add(topNode, new Point2D.Double(200 * Math.random(), 0)))
       {
       }
 
@@ -206,7 +205,6 @@ public class SequenceDiagramReader implements Reader
    }
 
    private ArrayList<ImplicitParameterNode> TopNodes;
-   private Graph graph;
-   private String oldInput;
+   private SequenceDiagramGraph graph;
    private HashMap<ImplicitParameterNode, ArrayList<CallNode>> callNodes;
 }

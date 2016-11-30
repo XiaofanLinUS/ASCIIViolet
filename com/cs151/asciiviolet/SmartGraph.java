@@ -14,7 +14,6 @@ import com.horstmann.violet.framework.Node;
  */
 public abstract class SmartGraph extends Graph
 {
-
    /**
     * Construct a graph that uses ForceDirectedLayout
     */
@@ -43,6 +42,14 @@ public abstract class SmartGraph extends Graph
       refresh();
    }
 
+   @Override
+   public boolean add(Node n, Point2D p)
+   {
+      boolean result = super.add(n, p);
+      refresh();
+      return result;
+   }
+
    /**
     * Rearrange the positions of nodes and edges
     */
@@ -60,6 +67,11 @@ public abstract class SmartGraph extends Graph
    public void setPlan(LayoutPlanner aPlan)
    {
       plan = aPlan;
+   }
+
+   public LayoutPlanner getPlan()
+   {
+      return plan;
    }
 
    LayoutPlanner plan;

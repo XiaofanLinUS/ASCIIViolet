@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import com.horstmann.violet.ClassDiagramGraph;
 import com.horstmann.violet.ClassNode;
 import com.horstmann.violet.ClassRelationshipEdge;
 import com.horstmann.violet.NoteEdge;
@@ -41,11 +42,9 @@ public class ClassDiagramReader implements Reader
     */
    private void resetGraph()
    {
-      ArrayList<Node> removedNodes = (ArrayList<Node>) nodes.clone();
-      for (Node node : removedNodes)
-      {
-         graph.removeNode(node);
-      }
+      graph = new ClassDiagramGraph();
+      nodes = (ArrayList<Node>) graph.getNodes();
+      classNodes = new HashMap<>();
    }
 
    /**
@@ -54,16 +53,15 @@ public class ClassDiagramReader implements Reader
     * @param input
     *           the given input
     */
-   public void read(String input)
+   public Graph read(String input)
    {
       Scanner s = new Scanner(input);
       String command = "";
 
       if (oldInput.equals(input))
       {
-         return;
+         return graph;
       }
-      classNodes = new HashMap<>();
       resetGraph();
       while (s.hasNext())
       {
@@ -122,6 +120,7 @@ public class ClassDiagramReader implements Reader
        * graph.removeNode(classNode); } } }
        */
       oldInput = input;
+      return graph;
    }
 
    private void connect(String a, String b, String op)
