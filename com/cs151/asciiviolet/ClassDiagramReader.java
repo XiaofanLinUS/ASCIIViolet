@@ -58,7 +58,6 @@ public class ClassDiagramReader implements Reader
    {
       Scanner s = new Scanner(input);
       String command = "";
-      // names = new HashSet<>();
 
       if (oldInput.equals(input))
       {
@@ -106,7 +105,7 @@ public class ClassDiagramReader implements Reader
                nameB += command.charAt(count);
                count++;
             }
-            
+
             // for the case of two nodes.
             if (nameA != "" && nameB != "")
                connect(nameA, nameB, operator);

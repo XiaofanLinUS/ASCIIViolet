@@ -57,7 +57,7 @@ public class SequenceDiagramReader implements Reader
          String operator = "";
          String secondInput = "";
          String secondNum = "";
-
+         String label = "";
          while (count < command.length())
          {
             // putting in the first input to the firstInput variable
@@ -89,18 +89,26 @@ public class SequenceDiagramReader implements Reader
             }
             count++;
             // Second Number
-            while (count < command.length())
+            while (count < command.length() && command.charAt(count) != ':')
             {
                secondNum += command.charAt(count);
                count++;
             }
-
-            connect(firstInput, Integer.parseInt(firstNum) - 1, secondInput, Integer.parseInt(secondNum) - 1, operator);
+            count++;
+            while (count < command.length())
+            {
+               label += command.charAt(count);
+               count++;
+            }
+            connect(firstInput, Integer.parseInt(firstNum) - 1, secondInput, Integer.parseInt(secondNum) - 1, operator,
+                  label);
          }
+
       }
    }
 
-   private void connect(String firstInput, int firstNum, String secondInput, int secondNum, String operator)
+   private void connect(String firstInput, int firstNum, String secondInput, int secondNum, String operator,
+         String label)
    {
       // separator between nodes
       ImplicitParameterNode topNodeA = find(firstInput);
@@ -114,11 +122,11 @@ public class SequenceDiagramReader implements Reader
       {
          topNodeB = addTopNode(secondInput);
       }
-      operate(topNodeA, firstNum, topNodeB, secondNum, operator);
+      operate(topNodeA, firstNum, topNodeB, secondNum, operator, label);
    }
 
    private void operate(ImplicitParameterNode topNodeA, int indexA, ImplicitParameterNode topNodeB, int indexB,
-         String operator)
+         String operator, String label)
    {
       CallNode callNodeA = find(topNodeA, indexA);
       CallNode callNodeB = find(topNodeB, indexB);
@@ -130,12 +138,15 @@ public class SequenceDiagramReader implements Reader
 
          if (TopNodes.indexOf(topNodeA) <= TopNodes.indexOf(topNodeB))
          {
-            graph.connect(new CallEdge(), callPointA, callPointB);
+            CallEdge edge = new CallEdge();
+            edge.setMiddleLabel(label);
+            graph.connect(edge, callPointA, callPointB);
          } else
          {
-            graph.connect(new ReturnEdge(), callPointA, callPointB);
+            ReturnEdge edge = new ReturnEdge();
+            edge.setMiddleLabel(label);
+            graph.connect(edge, callPointA, callPointB);
          }
-
       }
    }
 
