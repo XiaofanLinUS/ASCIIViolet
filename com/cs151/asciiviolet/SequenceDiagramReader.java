@@ -28,18 +28,13 @@ public class SequenceDiagramReader implements Reader
     */
    public SequenceDiagramReader(Graph graph)
    {
-      // ImplicitParameterNode = new HashMap<>();
       this.graph = graph;
       TopNodes = new ArrayList<ImplicitParameterNode>();
       callNodes = new HashMap<>();
-      // nodes = (ArrayList<Node>) graph.getNodes();
-      // oldInput = "";
    }
 
    private void resetGraph()
    {
-      // ArrayList<ImplicitParameterNode> removedNodes =
-      // (ArrayList<ImplicitParameterNode>) TopNodes.clone();
       for (ImplicitParameterNode node : TopNodes)
       {
          graph.removeNode(node);
@@ -86,15 +81,6 @@ public class SequenceDiagramReader implements Reader
 
           connect(firstInput, secondInput, operator);
       }
-      // resetGraph();
-      /*
-       * int width = 0; for(ImplicitParameterNode node: TopNodes) {
-       * graph.add(node,new Point2D.Double(width,0)); /* ArrayList<Node> list =
-       * (ArrayList<Node>) node.getChildren(); int height = 100; for(Node cnode:
-       * list) { graph.add(cnode, new Point2D.Double(width,height)); height +=
-       * cnode.getBounds().getHeight() + 10; } width +=
-       * node.getBounds().getWidth() + 10; }
-       */
    }
 
    private void connect(String firstInput, String secondInput, String operator)
@@ -204,5 +190,4 @@ public class SequenceDiagramReader implements Reader
    private Graph graph;
    private String oldInput;
    private HashMap<ImplicitParameterNode, ArrayList<CallNode>> callNodes;
-   // private HashMap<String, Node> classNodes;
 }
