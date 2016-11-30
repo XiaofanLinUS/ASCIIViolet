@@ -98,8 +98,15 @@ public class CallEdge extends SegmentedLineEdge
       }
       return a;
    }
+   public void setMark(int mark){
+	   this.mark = mark;
+   }
+   public int getMark(){
+	   return mark;
+   }
 
    private boolean signal;
+   private int mark;
 }
 
 

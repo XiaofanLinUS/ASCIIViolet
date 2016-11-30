@@ -267,8 +267,7 @@ public class CallNode extends RectangularNode
       @param newValue true if this node is the target of a signal edge
    */      
    public void setOpenBottom(boolean newValue) { openBottom = newValue; }
-
-
+   
    private ImplicitParameterNode implicitParameter;
    private boolean signaled;
    private boolean openBottom;
@@ -276,4 +275,6 @@ public class CallNode extends RectangularNode
    private static int DEFAULT_WIDTH = 16;
    private static int DEFAULT_HEIGHT = 30;
    public static int CALL_YGAP = 20;
+   
+
 }
