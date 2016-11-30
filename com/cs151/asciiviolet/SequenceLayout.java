@@ -110,5 +110,4 @@ public class SequenceLayout implements LayoutPlanner
    private Graph graph;
    private ArrayList<Node> nodes;
    private HashMap<ImplicitParameterNode, ArrayList<CallNode>> callNodes;
-
 }
