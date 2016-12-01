@@ -47,12 +47,7 @@ public class ClassDiagramReader implements Reader
       classNodes = new HashMap<>();
    }
 
-   /**
-    * Read the input and execute it
-    * 
-    * @param input
-    *           the given input
-    */
+   @Override
    public Graph read(String input)
    {
       Scanner s = new Scanner(input);

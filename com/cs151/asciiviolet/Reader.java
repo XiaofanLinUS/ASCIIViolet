@@ -18,7 +18,7 @@ public interface Reader
     * 
     * @param command
     *           the given input
-    * @return
+    * @return a graph that is created based on the input
     */
    Graph read(String command);
 

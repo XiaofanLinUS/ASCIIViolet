@@ -69,10 +69,5 @@ public abstract class SmartGraph extends Graph
       plan = aPlan;
    }
 
-   public LayoutPlanner getPlan()
-   {
-      return plan;
-   }
-
    LayoutPlanner plan;
 }
