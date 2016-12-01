@@ -182,10 +182,11 @@ public class SequenceDiagramReader implements Reader
       callNode.setImplicitParameter(topNode);
       callNodes.get(topNode).add(callNode);
 
+
       while (!graph.add(callNode, new Point2D.Double(topNode.getX() + 5, 200 * Math.random())))
       {
       }
-      ;
+
       return callNode;
    }
 
@@ -196,9 +197,11 @@ public class SequenceDiagramReader implements Reader
       string.setText(name);
       topNode.setName(string);
       TopNodes.add(topNode);
+
       while (!graph.add(topNode, new Point2D.Double(200 * Math.random(), 0)))
       {
       }
+
 
       callNodes.put(topNode, new ArrayList<CallNode>());
       return topNode;
