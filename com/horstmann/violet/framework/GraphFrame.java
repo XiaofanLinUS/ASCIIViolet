@@ -31,6 +31,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
+import com.cs151.asciiviolet.Reader;
 import com.cs151.asciiviolet.TextBar;
 
 /**
@@ -49,7 +50,7 @@ public class GraphFrame extends JInternalFrame
       graph = aGraph;
       toolBar = new ToolBar(graph);
       panel = new GraphPanel(toolBar); // toolbar
-      textBar = new TextBar(graph, panel);// add textbar
+      textBar = new TextBar(Reader.get(graph), this);// add textbar
 
       Container contentPane = getContentPane();
       contentPane.add(textBar, BorderLayout.NORTH); // toolBar
@@ -125,10 +126,23 @@ public class GraphFrame extends JInternalFrame
       setTitle(newValue);
    }
 
+   /**
+    * Replace the graph with a new graph
+    * 
+    * @param aGraph
+    *           the new graph
+    */
+   public void setGraph(Graph aGraph)
+   {
+      graph = aGraph;
+      panel.setGraph(graph);
+   }
+
    // private String userInput;
    private Graph graph;
    private GraphPanel panel;
    private TextBar textBar;
    private ToolBar toolBar;
    private String fileName;
+
 }

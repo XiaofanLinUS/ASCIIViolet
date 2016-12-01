@@ -9,8 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
-import com.horstmann.violet.framework.Graph;
-import com.horstmann.violet.framework.GraphPanel;
+import com.horstmann.violet.framework.GraphFrame;
 
 /**
  * A TextBar that receives string
@@ -23,24 +22,23 @@ public class TextBar extends JPanel
    private String userInput;
    private JTextArea textfield;
    private JButton button;
-   private Graph graph;
-   private GraphPanel panel;
    private Reader reader;
    private Font font;
+   private GraphFrame frame;
 
    /**
-    * Construct a TextBar with a given graph and graph panel
+    * Construct a TextBar with a given reader and graph frame
     * 
-    * @param aGraph
-    *           the given graph
-    * @param aPanel
-    *           the iven graph panel
+    * @param aReader
+    *           the given reader
+    * @param aFrame
+    *           the given graph frame
     */
-   public TextBar(Graph aGraph, GraphPanel aPanel)
+   public TextBar(Reader aReader, GraphFrame aFrame)
    {
       font = new Font("SansSerif", Font.PLAIN, 18);
-      reader = Reader.get(aGraph);
-      panel = aPanel;
+      reader = aReader;
+      frame = aFrame;
       setLayout(new BorderLayout());
       userInput = "";
       textfield = new JTextArea(10, 100); // 15 row
@@ -60,7 +58,6 @@ public class TextBar extends JPanel
    private void executeCommand()
    {
       userInput = textfield.getText();
-      panel.setGraph(reader.read(userInput));
+      frame.setGraph(reader.read(userInput));
    }
-
 }
