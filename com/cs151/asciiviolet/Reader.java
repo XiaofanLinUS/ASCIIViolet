@@ -40,7 +40,6 @@ public interface Reader
          reader = new SequenceDiagramReader(graph);
       }
       return reader;
-
    }
 
 }

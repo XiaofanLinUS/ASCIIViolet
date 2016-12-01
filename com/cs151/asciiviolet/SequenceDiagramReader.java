@@ -29,7 +29,7 @@ public class SequenceDiagramReader implements Reader
     */
    public SequenceDiagramReader(Graph graph)
    {
-      this.graph = (SequenceDiagramGraph) graph;
+      this.graph = graph;
       TopNodes = new ArrayList<ImplicitParameterNode>();
       callNodes = new HashMap<>();
    }
@@ -182,7 +182,6 @@ public class SequenceDiagramReader implements Reader
       callNode.setImplicitParameter(topNode);
       callNodes.get(topNode).add(callNode);
 
-
       while (!graph.add(callNode, new Point2D.Double(topNode.getX() + 5, 200 * Math.random())))
       {
       }
@@ -202,12 +201,11 @@ public class SequenceDiagramReader implements Reader
       {
       }
 
-
       callNodes.put(topNode, new ArrayList<CallNode>());
       return topNode;
    }
 
    private ArrayList<ImplicitParameterNode> TopNodes;
-   private SequenceDiagramGraph graph;
+   private Graph graph;
    private HashMap<ImplicitParameterNode, ArrayList<CallNode>> callNodes;
 }

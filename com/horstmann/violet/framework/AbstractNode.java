@@ -64,6 +64,7 @@ public abstract class AbstractNode implements Node
       }
    }
 
+   @Override
    public void setX(double x)
    {
       for (int i = 0; i < children.size(); i++)
@@ -73,6 +74,7 @@ public abstract class AbstractNode implements Node
       }
    }
 
+   @Override
    public void setY(double y)
    {
       for (int i = 0; i < children.size(); i++)

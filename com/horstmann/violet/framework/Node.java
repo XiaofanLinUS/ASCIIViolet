@@ -39,8 +39,18 @@ public interface Node extends Serializable, Cloneable
     */
    void draw(Graphics2D g2);
 
+   /**
+    * Get the x coordinate of this node
+    * 
+    * @return the x coordinate
+    */
    double getX();
 
+   /**
+    * Get the y coordinate of this node
+    * 
+    * @return the y coordinate
+    */
    double getY();
 
    /**

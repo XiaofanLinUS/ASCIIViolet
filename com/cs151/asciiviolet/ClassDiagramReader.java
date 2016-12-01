@@ -313,7 +313,6 @@ public class ClassDiagramReader implements Reader
       return classNodes.get(name);
    }
 
-   // private HashSet<String> names;
    private ArrayList<Node> nodes;
    private Graph graph;
    private HashMap<String, Node> classNodes;
