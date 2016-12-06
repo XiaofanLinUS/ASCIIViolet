@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"> 
+  <head> 
+    <title>Slide Shows in XHTML</title> 
+    <meta name="copyright" 
+	  content="Copyright &#169; 2005 your copyright notice" /> 
+    <link rel="stylesheet" type="text/css" media="screen, projection, print" 
+	  href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+    <link rel="stylesheet" type="text/css" media="screen, projection, print"
+	  href="http://www.w3.org/Talks/Tools/Slidy2/styles/w3c-blue.css" /> 
+    <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js" 
+	    charset="utf-8" type="text/javascript"></script> 
+  </head>
+  <body>
+    <div class="background"> 
+      <img id="head-icon" alt="graphic with four colored squares"
+	   src="http://www.w3.org/Talks/Tools/Slidy2/graphics/icon-blue.png" /> 
+      <object id="head-logo" title="W3C logo" type="image/svg+xml"
+	      data="http://www.w3.org/Talks/Tools/Slidy2/graphics/w3c-logo-white.svg"><img
+											  src="http://www.w3.org/Talks/Tools/Slidy2/graphics/w3c-logo-white.gif" 
+											  alt="W3C logo" id="head-logo-fallback" /></object>
+    </div>
+
+    <div class="slide">
+      <h1>Demo</h1>
+      <img src="https://xiaofanlinus.github.io/examples/Demo1.png" height="400px"/>
+      <img src="https://xiaofanlinus.github.io/examples/Demo2.png" height="400px"/>
+      
+    </div>
+
+    
+
+    <div class="slide">
+      <h1>ASCIIViolet</h1>
+
+
+      <p>This is a program creates class diagram and sequence diagram by input words notation.</p>
+
+
+      <ul>
+      </ul>
+    </div>
+
+
+
+
+    <div class="slide">
+      <h1>Class Diagram command</h1>
+      <p> We use expression like >  and . in order to do a command; great example are below</p> 
+      <ul>
+	<li> --> dependency</li>
+	<li> -|> inheritance</li>
+	<li> --|> interface Inheritance</li>
+	<li> -> association</li>
+	<li> <>- aggregation </li>
+	<li> <.>- composition</li>
+	<li> -- Note Edge</li>
+      </ul>
+    </div>
+
+
+    <div class="slide">
+      <h1>Class Diagram command cont.</h1>
+      <p> We could also can add label on the edge by insert string in between the command:</p>
+      <ul>
+	<li>-middle label->    dependency</li>
+	<li> <>start label + end label- aggregation </li>
+	<li> --start label + middle label + end label |> interface Inheritance</li>
+
+
+      </ul>
+
+
+    </div>
+
+
+    <div class="slide">
+      <h1>Sequence Diagram command</h1>
+      <p>we use the command: "className1"|"index1"->"className2"|"index2":"methodCall"</p>
+      <ul>
+	<li>The index after the '|' is the index of the method called on the timeline. Look at examples below for more explanation.</li>
+	<li>The method call after the ':' is an optional parameter that will be placed above the connection line of the two nodes.</li>
+      </ul>
+    </div>
+    
+
+    <div class="slide">
+      <h1>Techniques</h1>
+      <h2>Strategy Design1</h2>
+	<h3>Context:</h3>
+	<p>SmartGraph</p>
+	<h3>Strategy:</h3>
+	<p>LayoutPlanner</p>
+	<h3>ConreteStrategy:</h3>
+	<p><a href="http://getspringy.com/demo.html">ForceDirectedLayout</a></p>
+	<h3>doWork:</h3>
+	<p>refresh</p>
+    </div>
+    
+    <div class="slide">
+      <h1>Techniques</h1>
+      <h2>Strategy Design2</h2>
+      <h3>Context:</h3>
+      <p>TextBar</p>
+      <h3>Strategy:</h3>
+      <p>Reader</p>
+      <h3>ConreteStrategy:</h3>
+      <p>ClassDiagramReader</p>
+      <h3>doWork:</h3>
+      <p>read</p>
+    </div>
+    <div class="slide">
+      <h1>Techniques</h1>
+      <h3>Polymorphism</h3>
+	<img src="https://xiaofanlinus.github.io/designs/design1.png" height="300"/>
+	<img src="https://xiaofanlinus.github.io/designs/design2.png" height="300" />
+	<h3>Reflection</h3>
+	<p>I use reflection in Reader and LayoutPlanner interfaces to let them create the corresponding Strategy for a specific Context.</p>
+    </div>
+
+    <div class="slide">
+      <h1>Design</h1>
+      <p>Prorgram was built with Different Interface and layout</p>
+      <li>Interface: LayoutPlanner </li>
+      <p>We change the parent in ClassDigramGraph and SequenceDiagramGraph to SmartGraph. When a user add a node or connect an edge the graph will auto-rearrange the position of nodes and edges appropriately.</p>
+      <ul>
+      </ul>
+    </div>
+
+
+
+
+
+
+    <div class="slide">
+      <h1>Design</h1>
+      <p>Program was built with Different Interface and layout</p>
+      <li>Interface: SequenceLayout </li>
+      <p>The SequenceLayout will automatically arrange top nodes to the same Y coordinate and different X coordinates with a fixed interval between each two top nodes and arranges topnodes' callnodes to the same X coordinate as the topnodes' with a small interval between two adjacent callnodes.</p>
+      <ul>
+      </ul>
+    </div>
+
+
+    <div class="slide">
+      <h1>Design(continuation)</h1>
+      <li>Interface: SequenceLayout </li>
+      <p>The SequenceLayout will automatically arrange top nodes to the same Y coordinate and different X coordinates with a fixed interval between each two top nodes and arranges topnodes' callnodes to the same X coordinate as the topnodes' with a small interval between two adjacent callnodes.</p>
+      <p> We create a Reader that executes some commands to create a Graph. The get method takes Graph as a parameter to construct the corresponding reader and return it. There is read() method which will take a string as a parameter and create a new graph based on the string. Then the read method will return the new Graph to TextBar. And let it handle the graph.</p>
+      <ul>
+      </ul>
+    </div>
+
+
+
+
+    <div class="slide">
+      <h1>Design(continuationpt2)</h1>
+      <p>Sequence Diagram Command Model:</p>
+      <li>Interface: SequenceLayout </li>
+      <p>"className1"|"index1"->"className2"|"index2":"methodCall"
+	The index after the '|' is the index of the method called on the timeline. Look at examples below for more explanation.The method call after the ':' is an optional parameter that will be placed above the connection line of the two nodes.</p>
+      <ul>
+      </ul>
+    </div>
+    <div class="slide">
+      <h1>Teamwork</h1>
+      <h3>What helps</h3>
+      <p>Started the project early</p>
+      <p>Communication(discussion)</p>
+      
+      <h3>What can be better</h3>
+      <p>Work is not evenly distributed(We need a plan)</p>
+      <p>Need frequent meet ups</p>
+    </div>
+    </div>
+  </body>
+</html>
