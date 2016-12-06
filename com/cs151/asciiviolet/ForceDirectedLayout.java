@@ -242,6 +242,7 @@ public class ForceDirectedLayout implements LayoutPlanner
 
    private void initialize()
    {
+      l = (nodes.size() / 6) * 120;
       done = true;
       for (Node node : nodes)
       {
